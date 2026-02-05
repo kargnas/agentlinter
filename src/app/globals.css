@@ -14,6 +14,9 @@
   --color-accent-bright: #c4b5fd;
   --color-accent-dim: rgba(167, 139, 250, 0.10);
   --color-accent-glow: rgba(167, 139, 250, 0.06);
+  --color-teal: #5eead4;
+  --color-teal-bright: #99f6e4;
+  --color-teal-dim: rgba(94, 234, 212, 0.10);
   --color-red: #f87171;
   --color-amber: #fbbf24;
   --color-green: #34d399;
@@ -35,6 +38,9 @@
     --accent-bright: #c4b5fd;
     --accent-dim: rgba(167, 139, 250, 0.10);
     --accent-glow: rgba(167, 139, 250, 0.06);
+    --teal: #5eead4;
+    --teal-bright: #99f6e4;
+    --teal-dim: rgba(94, 234, 212, 0.10);
     --red: #f87171;
     --amber: #fbbf24;
     --green: #34d399;

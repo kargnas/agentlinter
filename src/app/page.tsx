@@ -153,7 +153,7 @@ function AnimatedTerminal() {
     if (t === "error") return "text-[var(--red)]";
     if (t === "warn") return "text-[var(--amber)]";
     if (t === "warning") return "text-[var(--amber)]";
-    if (t === "success") return "text-[var(--green)]";
+    if (t === "success") return "text-[var(--teal)]";
     return "text-[var(--text-dim)]";
   };
 
@@ -298,8 +298,8 @@ export default function Home() {
   return (
     <div className="min-h-screen noise">
       {/* ── Nav ── */}
-      <nav className="fixed top-0 w-full z-50 backdrop-blur-2xl bg-[var(--bg)]/80 border-b border-[var(--border)]" style={{ paddingTop: "env(safe-area-inset-top)" }}>
-        <div className="max-w-[1000px] mx-auto px-6 sm:px-8 h-14 flex items-center justify-between">
+      <nav className="fixed top-0 w-full z-50 backdrop-blur-2xl bg-[var(--bg)]/80 border-b border-[var(--border)] px-6 sm:px-8" style={{ paddingTop: "env(safe-area-inset-top)" }}>
+        <div className="max-w-[1000px] mx-auto h-14 flex items-center justify-between">
           <div className="flex items-center gap-2.5">
             <Logo size={22} />
             <span className="font-semibold text-[15px] tracking-tight">AgentLinter</span>
@@ -458,7 +458,7 @@ export default function Home() {
                   <h3 className="font-semibold text-[15px] mb-3 leading-tight">{item.title}</h3>
                   <p className="text-[13px] text-[var(--text-secondary)] leading-[1.7] mb-5">{item.desc}</p>
                   <div className="pt-4 border-t border-[var(--border)]">
-                    <span className="text-[22px] font-bold text-[var(--accent)] glow-text">{item.stat}</span>
+                    <span className="text-[22px] font-bold text-[var(--teal)]">{item.stat}</span>
                     <p className="text-[11px] text-[var(--text-dim)] mt-1">{item.statLabel}</p>
                   </div>
                 </div>
@@ -474,7 +474,7 @@ export default function Home() {
       <section id="how" className="py-24 sm:py-32 px-6 sm:px-8 border-t border-[var(--border)]">
         <div className="max-w-[1000px] mx-auto">
           <FadeIn>
-            <p className="text-[12px] mono text-[var(--accent)] mb-4 tracking-wider uppercase">How it works</p>
+            <p className="text-[12px] mono text-[var(--teal)] mb-4 tracking-wider uppercase">How it works</p>
             <h2 className="display text-[28px] sm:text-[40px] lg:text-[48px] leading-[1.1] tracking-tight mb-6">
               One command. Full diagnosis.
             </h2>
@@ -511,8 +511,8 @@ export default function Home() {
               <FadeIn key={item.step} delay={0.1 * i}>
                 <div className="p-6 sm:p-7 rounded-2xl bg-[var(--bg-card)] border border-[var(--border)] hover:border-[var(--border-hover)] transition-all h-full group">
                   <div className="flex items-center justify-between mb-6">
-                    <span className="text-[11px] mono text-[var(--accent)] bg-[var(--accent-dim)] px-2.5 py-1 rounded-lg">{item.step}</span>
-                    <item.icon className="w-5 h-5 text-[var(--text-dim)] group-hover:text-[var(--accent)] transition-colors" />
+                    <span className="text-[11px] mono text-[var(--teal)] bg-[var(--teal-dim)] px-2.5 py-1 rounded-lg">{item.step}</span>
+                    <item.icon className="w-5 h-5 text-[var(--text-dim)] group-hover:text-[var(--teal)] transition-colors" />
                   </div>
                   <h3 className="text-[18px] font-semibold mb-3">{item.title}</h3>
                   <p className="text-[13px] text-[var(--text-secondary)] leading-[1.7] mb-4">{item.desc}</p>
@@ -619,7 +619,7 @@ export default function Home() {
       <section id="compare" className="py-24 sm:py-32 px-6 sm:px-8 border-t border-[var(--border)]">
         <div className="max-w-[1000px] mx-auto">
           <FadeIn>
-            <p className="text-[12px] mono text-[var(--accent)] mb-4 tracking-wider uppercase">How we&apos;re different</p>
+            <p className="text-[12px] mono text-[var(--teal)] mb-4 tracking-wider uppercase">How we&apos;re different</p>
             <h2 className="display text-[28px] sm:text-[40px] lg:text-[48px] leading-[1.1] tracking-tight mb-4 max-w-[700px]">
               Anthropic built the foundation.
               <br />
@@ -753,7 +753,7 @@ export default function Home() {
       <section className="py-24 sm:py-32 px-6 sm:px-8 border-t border-[var(--border)]">
         <div className="max-w-[1000px] mx-auto">
           <FadeIn>
-            <p className="text-[12px] mono text-[var(--accent)] mb-4 tracking-wider uppercase">Intelligence</p>
+            <p className="text-[12px] mono text-[var(--teal)] mb-4 tracking-wider uppercase">Intelligence</p>
             <h2 className="display text-[28px] sm:text-[40px] leading-[1.1] tracking-tight mb-5">
               Rules that learn.
             </h2>
