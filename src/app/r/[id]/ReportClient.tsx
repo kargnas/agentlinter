@@ -587,7 +587,7 @@ export default function ReportPage({ data }: { data: ReportData }) {
 
         {/* ═══════ Table of Contents ═══════ */}
         <div className="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-5">
-          <h2 className="text-[13px] font-semibold text-[var(--text-secondary)] uppercase tracking-wider mb-3">In This Report</h2>
+          <h2 className="text-[15px] font-semibold text-[var(--text-secondary)] uppercase tracking-wider mb-3">In This Report</h2>
           <div className="grid grid-cols-2 gap-1.5">
             {[
               { label: "Category Deep-Dives", anchor: "#categories", icon: <BookOpen className="w-3 h-3" /> },
@@ -611,7 +611,7 @@ export default function ReportPage({ data }: { data: ReportData }) {
 
         {/* ═══════ Category Deep-Dives ═══════ */}
         <div id="categories" className="space-y-4">
-          <h2 className="text-[18px] font-bold display flex items-center gap-2.5">
+          <h2 className="text-[24px] sm:text-[28px] font-bold display flex items-center gap-3">
             <BookOpen className="w-5 h-5 text-[var(--accent)]" />
             Category Deep-Dives
           </h2>
@@ -781,7 +781,7 @@ export default function ReportPage({ data }: { data: ReportData }) {
 
         {/* ═══════ All Diagnostics (flat view) ═══════ */}
         <div id="diagnostics" className="space-y-4">
-          <h2 className="text-[18px] font-bold display flex items-center gap-2.5">
+          <h2 className="text-[24px] sm:text-[28px] font-bold display flex items-center gap-3">
             <Target className="w-5 h-5 text-[var(--accent)]" />
             All Diagnostics
           </h2>
@@ -830,7 +830,7 @@ export default function ReportPage({ data }: { data: ReportData }) {
 
         {/* ═══════ Score Distribution ═══════ */}
         <div id="distribution" className="space-y-4">
-          <h2 className="text-[18px] font-bold display flex items-center gap-2.5">
+          <h2 className="text-[24px] sm:text-[28px] font-bold display flex items-center gap-3">
             <Sparkles className="w-5 h-5 text-[var(--accent)]" />
             Score Distribution
           </h2>
@@ -861,7 +861,7 @@ export default function ReportPage({ data }: { data: ReportData }) {
 
         {/* ═══════ Scoring Methodology ═══════ */}
         <div id="methodology" className="space-y-4">
-          <h2 className="text-[18px] font-bold display flex items-center gap-2.5">
+          <h2 className="text-[24px] sm:text-[28px] font-bold display flex items-center gap-3">
             <Zap className="w-5 h-5 text-[var(--accent)]" />
             Scoring Methodology
           </h2>
@@ -872,13 +872,13 @@ export default function ReportPage({ data }: { data: ReportData }) {
           <div className="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-5 sm:p-6 space-y-5">
             {/* Base score */}
             <div>
-              <h3 className="text-[13px] font-semibold mb-2">Base Score</h3>
+              <h3 className="text-[15px] font-semibold mb-2">Base Score</h3>
               <p className="text-[13px] text-[var(--text-secondary)]">{SCORING_METHODOLOGY.base}</p>
             </div>
 
             {/* Deductions */}
             <div>
-              <h3 className="text-[13px] font-semibold mb-3">Deductions</h3>
+              <h3 className="text-[15px] font-semibold mb-3">Deductions</h3>
               <div className="space-y-2.5">
                 {SCORING_METHODOLOGY.deductions.map((d) => (
                   <div key={d.severity} className="flex items-center gap-3">
@@ -899,7 +899,7 @@ export default function ReportPage({ data }: { data: ReportData }) {
 
             {/* Bonuses */}
             <div>
-              <h3 className="text-[13px] font-semibold mb-3">Bonus Points</h3>
+              <h3 className="text-[15px] font-semibold mb-3">Bonus Points</h3>
               <div className="space-y-1.5">
                 {SCORING_METHODOLOGY.bonuses.map((b) => (
                   <div key={b.category} className="flex items-start gap-2.5 text-[12px]">
@@ -937,7 +937,7 @@ export default function ReportPage({ data }: { data: ReportData }) {
 
         {/* ═══════ Files Scanned ═══════ */}
         <div id="files" className="space-y-4">
-          <h2 className="text-[18px] font-bold display flex items-center gap-2.5">
+          <h2 className="text-[24px] sm:text-[28px] font-bold display flex items-center gap-3">
             <FileText className="w-5 h-5 text-[var(--accent)]" />
             Files Scanned ({data.filesScanned})
           </h2>
@@ -971,7 +971,7 @@ export default function ReportPage({ data }: { data: ReportData }) {
 
         {/* ═══════ Next Steps ═══════ */}
         <div id="next-steps" className="space-y-4">
-          <h2 className="text-[18px] font-bold display flex items-center gap-2.5">
+          <h2 className="text-[24px] sm:text-[28px] font-bold display flex items-center gap-3">
             <ArrowRight className="w-5 h-5 text-[var(--accent)]" />
             Next Steps
           </h2>
