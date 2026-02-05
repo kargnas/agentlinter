@@ -557,6 +557,34 @@ export default function ReportPage({ data }: { data: ReportData }) {
           </div>
         </motion.div>
 
+        {/* ═══════ Share on X CTA ═══════ */}
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+          className="rounded-xl border border-[#1d9bf0]/30 bg-gradient-to-r from-[#1d9bf0]/8 to-[#1d9bf0]/3 p-6"
+        >
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+            <div className="flex-1">
+              <h3 className="text-[15px] font-semibold text-white mb-1.5 flex items-center gap-2">
+                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                Share your score on X
+              </h3>
+              <p className="text-[13px] text-[var(--text-secondary)] leading-relaxed">
+                Every share helps more developers discover agent linting. Better agent configs across the ecosystem means fewer hallucinations, fewer security gaps, and stronger AI workflows for everyone.
+              </p>
+            </div>
+            <a
+              href={`https://x.com/intent/tweet?text=${encodeURIComponent(shareText)}`}
+              target="_blank"
+              className="shrink-0 inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-[#1d9bf0] hover:bg-[#1a8cd8] text-white text-[14px] font-medium transition-all hover:scale-[1.02] active:scale-[0.98]"
+            >
+              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+              Post on X
+            </a>
+          </div>
+        </motion.div>
+
         {/* ═══════ Table of Contents ═══════ */}
         <div className="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-5">
           <h2 className="text-[13px] font-semibold text-[var(--text-secondary)] uppercase tracking-wider mb-3">In This Report</h2>
