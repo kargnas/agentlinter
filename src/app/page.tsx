@@ -427,14 +427,14 @@ export default function Home() {
             </div>
 
             <h1 className="text-[32px] sm:text-[44px] lg:text-[56px] font-bold leading-[1.1] tracking-tight mb-6">
-              Sharpen your
+              How good is your
               <br />
-              <span className="text-[var(--accent)]">agent&apos;s edge.</span>
+              <span className="text-[var(--accent)]">CLAUDE.md?</span>
             </h1>
 
             <p className="text-[15px] sm:text-[17px] text-[var(--text-secondary)] leading-[1.7] mb-10 max-w-[480px]">
-              Score, diagnose, and auto-fix your CLAUDE.md and agent workspace
-              files. One command to make your AI agent dramatically better.
+              Your agent is only as good as its config. One command scores your
+              workspace, finds what&apos;s broken, and tells you exactly how to fix it.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-3">
@@ -473,10 +473,10 @@ export default function Home() {
         <div className="max-w-[920px] mx-auto">
           <div className="mb-14 sm:mb-16">
             <h2 className="text-[24px] sm:text-[32px] font-bold tracking-tight mb-3">
-              Everything your agent needs
+              What it checks
             </h2>
             <p className="text-[var(--text-secondary)] text-[15px]">
-              From basic scoring to self-evolving intelligence.
+              Five dimensions. Every file. Zero guesswork.
             </p>
           </div>
 
@@ -484,33 +484,33 @@ export default function Home() {
             {[
               {
                 icon: BarChart3,
-                title: "Multi-dimensional Score",
-                desc: "5 categories: Structure, Clarity, Completeness, Security, Consistency.",
+                title: "Score 0–100",
+                desc: "Structure, clarity, completeness, security, consistency — each scored individually.",
               },
               {
                 icon: Zap,
                 title: "Auto-fix",
-                desc: "Run --fix to automatically apply best practices to your files.",
+                desc: "Most issues come with a one-command fix. Accept or skip.",
               },
               {
                 icon: Shield,
                 title: "Secret Scan",
-                desc: "Detect API keys, tokens, and passwords before they leak.",
+                desc: "API keys in your config files? Caught before they hit GitHub.",
               },
               {
                 icon: FileText,
-                title: "Cross-file Consistency",
-                desc: "Catch contradictions between SOUL.md, CLAUDE.md, TOOLS.md.",
+                title: "Cross-file Check",
+                desc: "SOUL.md says one thing, CLAUDE.md says another? You'll know.",
               },
               {
                 icon: Terminal,
-                title: "Templates",
-                desc: "Bootstrap with agentlinter init — personal, coding, team, or chatbot.",
+                title: "Starter Templates",
+                desc: "No config yet? Pick a template — personal, coding, team, or chatbot.",
               },
               {
                 icon: Lock,
-                title: "Custom Rules",
-                desc: "Define team rules in .agentlinterrc. Enforce your standards.",
+                title: "Team Rules",
+                desc: "Enforce your own standards with .agentlinterrc. Your rules, your scores.",
               },
             ].map((f) => (
               <div
@@ -534,19 +534,19 @@ export default function Home() {
           <div className="grid lg:grid-cols-2 gap-14 lg:gap-20 items-center">
             <div>
               <h2 className="text-[24px] sm:text-[32px] font-bold tracking-tight mb-4">
-                Lint. Report. Share.
+                Your report card.
               </h2>
               <p className="text-[var(--text-secondary)] text-[15px] leading-[1.7] mb-8">
-                Every lint generates a web report with your score, tier grade,
-                and prescriptions. Fix issues, then share your results on X.
+                Every run generates a web report — tier grade, category breakdown,
+                what to fix, and where you rank. Then share it.
               </p>
               <div className="space-y-3">
                 {[
-                  "Web report with score + tier (S/A+/A/...)",
-                  "Prescriptions: errors, warnings, auto-fixes",
-                  "Histogram — see where you rank",
-                  "Progress tracking — 72 → 89 (+17 pts)",
-                  "One-click share to X from report page",
+                  "Tier grades: S, A+, A, A-, B+, B …",
+                  "Exact prescriptions with auto-fix options",
+                  "See where you rank on the histogram",
+                  "Track progress over time — 72 → 89",
+                  "Share your report on X",
                 ].map((item) => (
                   <div key={item} className="flex items-start gap-3">
                     <div className="w-4 h-4 rounded-full bg-[var(--accent-dim)] flex items-center justify-center mt-0.5 shrink-0">
@@ -570,11 +570,11 @@ export default function Home() {
         <div className="max-w-[920px] mx-auto">
           <div className="mb-14">
             <h2 className="text-[24px] sm:text-[32px] font-bold tracking-tight mb-3">
-              Gets smarter with every lint
+              Rules that learn
             </h2>
             <p className="text-[var(--text-secondary)] text-[15px] max-w-[520px] leading-[1.7]">
-              Anonymized usage patterns feed back into the rule engine. Common
-              failures become new rules. Rejected fixes get replaced.
+              Every lint teaches us something. Common failures become new rules.
+              Bad fixes get replaced. The engine improves whether you do or not.
             </p>
           </div>
 
@@ -663,13 +663,13 @@ export default function Home() {
           <div className="space-y-4">
             <div className="p-5 sm:p-6 rounded-xl bg-[var(--bg-card)] border border-[var(--border)]">
               <div className="text-[12px] text-[var(--text-dim)] mb-3">
-                One command. That&apos;s it.
+                One command. Full report.
               </div>
               <code className="text-[var(--accent)] text-[15px] sm:text-[17px] mono">
                 npx agentlinter
               </code>
               <div className="text-[13px] text-[var(--text-secondary)] mt-4 leading-[1.7]">
-                Scores your agent → opens a web report with your tier, prescriptions, and share button.
+                Scans your workspace → scores every file → opens your report with tier, prescriptions, and a share button.
               </div>
             </div>
           </div>
