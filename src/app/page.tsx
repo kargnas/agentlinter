@@ -88,7 +88,7 @@ function AnimatedTerminal() {
     { text: "  ERROR  TOOLS.md missing", type: "error" },
     { text: "  WARN   No persona — Add SOUL.md", type: "warn" },
     { text: "", type: "blank" },
-    { text: "💡 Run `agentlinter fix` to auto-fix 4 issues", type: "success" },
+    { text: "📊 Report → agentlinter.com/r/a3f8k2", type: "success" },
   ];
 
   useEffect(() => {
@@ -228,9 +228,9 @@ function ScoreHistogram({ userScore }: { userScore: number }) {
 }
 
 /* ────────────────────────────────────────
-   Score Card Preview
+   Web Report Preview
    ──────────────────────────────────────── */
-function ScoreCardPreview() {
+function ReportPreview() {
   const score = 87;
   const tier = getTier(score);
   const percentile = 12;
@@ -243,77 +243,132 @@ function ScoreCardPreview() {
     { label: "Consistency", score: 75 },
   ];
 
+  const prescriptions = [
+    { type: "error", text: "Rotate exposed API key in TOOLS.md", fix: true },
+    { type: "error", text: "Create TOOLS.md with model config", fix: true },
+    { type: "warn", text: "Add SOUL.md for agent persona", fix: true },
+    { type: "warn", text: "Add error recovery workflow", fix: false },
+    { type: "info", text: "Consider adding SECURITY.md", fix: false },
+  ];
+
   return (
     <motion.div
-      className="w-full max-w-[360px] mx-auto"
+      className="w-full max-w-[380px] mx-auto"
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
     >
-      <div className="rounded-2xl p-6 sm:p-8 bg-gradient-to-br from-[#1c1530] to-[#0e0b1a] border border-[var(--border)]">
-        {/* Header */}
-        <div className="flex items-center justify-between mb-6">
-          <div className="flex items-center gap-2 text-[var(--text-secondary)] text-sm">
-            <Logo size={16} />
-            <span>AgentLinter</span>
+      {/* Browser chrome */}
+      <div className="rounded-xl border border-[var(--border)] overflow-hidden bg-[#0a0a10]">
+        <div className="flex items-center gap-2 px-3 py-2 border-b border-[var(--border)] bg-[var(--bg-card)]">
+          <div className="flex gap-1.5">
+            <div className="w-2 h-2 rounded-full bg-[#ff5f57]" />
+            <div className="w-2 h-2 rounded-full bg-[#febc2e]" />
+            <div className="w-2 h-2 rounded-full bg-[#28c840]" />
           </div>
-          <div
-            className="px-2.5 py-0.5 rounded-md text-[13px] font-bold mono"
-            style={{ color: tier.color, backgroundColor: tier.bg }}
-          >
-            {tier.grade}
+          <div className="flex-1 mx-2">
+            <div className="bg-white/5 rounded-md px-3 py-1 text-[10px] text-[var(--text-dim)] mono text-center">
+              agentlinter.com/r/a3f8k2
+            </div>
           </div>
         </div>
 
-        {/* Score */}
-        <div className="text-center mb-2">
-          <span className="text-6xl font-bold text-white">{score}</span>
-          <span className="text-[var(--text-dim)] text-lg ml-1">/100</span>
-        </div>
+        <div className="p-5 sm:p-6 space-y-5">
+          {/* Header + Grade */}
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <Logo size={14} />
+              <span className="text-[12px] text-[var(--text-secondary)]">Report</span>
+            </div>
+            <div
+              className="px-2 py-0.5 rounded-md text-[12px] font-bold mono"
+              style={{ color: tier.color, backgroundColor: tier.bg }}
+            >
+              {tier.grade}
+            </div>
+          </div>
 
-        {/* Percentile */}
-        <div className="text-center mb-6">
-          <span className="text-[12px] mono" style={{ color: tier.color }}>
-            Top {percentile}% of all agents
-          </span>
-        </div>
-
-        {/* Category bars */}
-        <div className="space-y-3 mb-6">
-          {cats.map((c) => {
-            const catTier = getTier(c.score);
-            return (
-              <div key={c.label} className="flex items-center gap-3">
-                <span className="text-[12px] text-[var(--text-secondary)] w-[90px] text-right mono">
-                  {c.label}
-                </span>
-                <div className="flex-1 h-1.5 bg-white/5 rounded-full overflow-hidden">
-                  <div
-                    className="h-full rounded-full"
-                    style={{
-                      width: `${c.score}%`,
-                      backgroundColor: catTier.color,
-                      opacity: 0.7 + (c.score / 400),
-                    }}
-                  />
-                </div>
-                <span className="text-[12px] w-6 mono" style={{ color: catTier.color }}>
-                  {c.score}
-                </span>
+          {/* Score + Percentile */}
+          <div className="flex items-end gap-4">
+            <div>
+              <span className="text-[42px] font-bold text-white leading-none">{score}</span>
+              <span className="text-[var(--text-dim)] text-sm ml-1">/100</span>
+            </div>
+            <div className="pb-1.5">
+              <div className="text-[11px] mono" style={{ color: tier.color }}>
+                Top {percentile}%
               </div>
-            );
-          })}
-        </div>
-
-        {/* Histogram */}
-        <div className="pt-4 border-t border-[var(--border)]">
-          <div className="flex items-center justify-between mb-2">
-            <span className="text-[10px] text-[var(--text-dim)] mono">Score Distribution</span>
-            <span className="text-[10px] mono" style={{ color: tier.color }}>
-              Top {percentile}%
-            </span>
+              <div className="text-[10px] text-[var(--text-dim)]">of all agents</div>
+            </div>
           </div>
-          <ScoreHistogram userScore={score} />
+
+          {/* Category bars */}
+          <div className="space-y-2">
+            {cats.map((c) => {
+              const catTier = getTier(c.score);
+              return (
+                <div key={c.label} className="flex items-center gap-2">
+                  <span className="text-[10px] text-[var(--text-secondary)] w-[72px] text-right mono">
+                    {c.label}
+                  </span>
+                  <div className="flex-1 h-1 bg-white/5 rounded-full overflow-hidden">
+                    <div
+                      className="h-full rounded-full"
+                      style={{
+                        width: `${c.score}%`,
+                        backgroundColor: catTier.color,
+                        opacity: 0.8,
+                      }}
+                    />
+                  </div>
+                  <span className="text-[10px] w-5 mono" style={{ color: catTier.color }}>
+                    {c.score}
+                  </span>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Histogram */}
+          <div className="pt-3 border-t border-[var(--border)]">
+            <div className="text-[9px] text-[var(--text-dim)] mono mb-1.5">Distribution</div>
+            <ScoreHistogram userScore={score} />
+          </div>
+
+          {/* Prescriptions */}
+          <div className="pt-3 border-t border-[var(--border)]">
+            <div className="text-[10px] text-[var(--text-dim)] mono mb-2">Prescriptions</div>
+            <div className="space-y-1.5">
+              {prescriptions.map((p, i) => (
+                <div key={i} className="flex items-start gap-2">
+                  <span
+                    className="text-[9px] mono mt-0.5 px-1 rounded shrink-0"
+                    style={{
+                      color: p.type === "error" ? "var(--red)" : p.type === "warn" ? "var(--amber)" : "var(--text-dim)",
+                      backgroundColor: p.type === "error" ? "rgba(248,113,113,0.1)" : p.type === "warn" ? "rgba(251,191,36,0.1)" : "rgba(255,255,255,0.05)",
+                    }}
+                  >
+                    {p.type === "error" ? "ERR" : p.type === "warn" ? "WARN" : "INFO"}
+                  </span>
+                  <span className="text-[11px] text-[var(--text-secondary)] flex-1">{p.text}</span>
+                  {p.fix && (
+                    <span className="text-[9px] mono px-1.5 py-0.5 rounded-full shrink-0" style={{ color: "var(--accent)", backgroundColor: "var(--accent-dim)" }}>
+                      auto-fix
+                    </span>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Share CTA */}
+          <button
+            className="w-full flex items-center justify-center gap-2 py-2.5 rounded-lg text-[13px] font-medium transition-all"
+            style={{ backgroundColor: tier.bg, color: tier.color }}
+          >
+            <Share2 className="w-3.5 h-3.5" />
+            Share Report on X
+          </button>
         </div>
       </div>
     </motion.div>
@@ -479,19 +534,19 @@ export default function Home() {
           <div className="grid lg:grid-cols-2 gap-14 lg:gap-20 items-center">
             <div>
               <h2 className="text-[24px] sm:text-[32px] font-bold tracking-tight mb-4">
-                Score it. Share it.
+                Lint. Report. Share.
               </h2>
               <p className="text-[var(--text-secondary)] text-[15px] leading-[1.7] mb-8">
-                Every lint generates a shareable Score Card. One click to post
-                on X. Watch your friends try to beat your score.
+                Every lint generates a web report with your score, tier grade,
+                and prescriptions. Fix issues, then share your results on X.
               </p>
               <div className="space-y-3">
                 {[
-                  "Auto-generated Score Card image",
-                  "One-click share to X after linting",
-                  "Percentile ranking — Top 12%",
+                  "Web report with score + tier (S/A+/A/...)",
+                  "Prescriptions: errors, warnings, auto-fixes",
+                  "Histogram — see where you rank",
                   "Progress tracking — 72 → 89 (+17 pts)",
-                  "Badges: Security Master 🛡️, Perfect Score 💯",
+                  "One-click share to X from report page",
                 ].map((item) => (
                   <div key={item} className="flex items-start gap-3">
                     <div className="w-4 h-4 rounded-full bg-[var(--accent-dim)] flex items-center justify-center mt-0.5 shrink-0">
@@ -505,7 +560,7 @@ export default function Home() {
               </div>
             </div>
 
-            <ScoreCardPreview />
+            <ReportPreview />
           </div>
         </div>
       </section>
@@ -608,8 +663,8 @@ export default function Home() {
           <div className="space-y-4">
             {[
               { step: "1", label: "Score your agent", cmd: "npx agentlinter score ." },
-              { step: "2", label: "Auto-fix issues", cmd: "npx agentlinter fix --auto" },
-              { step: "3", label: "Share your score", cmd: "npx agentlinter share" },
+              { step: "2", label: "Open your web report", cmd: "→ agentlinter.com/r/a3f8k2" },
+              { step: "3", label: "Fix & share", cmd: "npx agentlinter fix --auto" },
             ].map((item) => (
               <div
                 key={item.step}
