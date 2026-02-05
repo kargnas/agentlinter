@@ -299,16 +299,18 @@ export default function Home() {
     <div className="min-h-screen noise">
       {/* ── Nav ── */}
       <nav className="fixed top-0 w-full z-50 backdrop-blur-2xl bg-[var(--bg)]/80 border-b border-[var(--border)] px-6 sm:px-8" style={{ paddingTop: "env(safe-area-inset-top)" }}>
-        <div className="max-w-[1000px] mx-auto h-14 flex items-center justify-between">
+        <div className="max-w-[1000px] mx-auto h-14 flex items-center">
           <div className="flex items-center gap-2.5">
             <Logo size={22} />
             <span className="font-semibold text-[15px] tracking-tight">AgentLinter</span>
           </div>
-          <div className="flex items-center gap-5">
-            <a href="#why" className="text-[13px] text-[var(--text-dim)] hover:text-[var(--text-secondary)] transition-colors hidden sm:inline">Why</a>
-            <a href="#how" className="text-[13px] text-[var(--text-dim)] hover:text-[var(--text-secondary)] transition-colors hidden sm:inline">How</a>
-            <a href="#compare" className="text-[13px] text-[var(--text-dim)] hover:text-[var(--text-secondary)] transition-colors hidden sm:inline">Compare</a>
-            <a href="#privacy" className="text-[13px] text-[var(--text-dim)] hover:text-[var(--text-secondary)] transition-colors hidden sm:inline">Privacy</a>
+          <div className="hidden sm:flex items-center gap-6 flex-1 justify-center">
+            <a href="#why" className="text-[13px] text-[var(--text-dim)] hover:text-[var(--text-secondary)] transition-colors">Why</a>
+            <a href="#how" className="text-[13px] text-[var(--text-dim)] hover:text-[var(--text-secondary)] transition-colors">How</a>
+            <a href="#compare" className="text-[13px] text-[var(--text-dim)] hover:text-[var(--text-secondary)] transition-colors">Compare</a>
+            <a href="#privacy" className="text-[13px] text-[var(--text-dim)] hover:text-[var(--text-secondary)] transition-colors">Privacy</a>
+          </div>
+          <div className="flex items-center gap-4 ml-auto">
             <a href="https://github.com/seojoonkim/agentlinter" target="_blank" className="text-[13px] text-[var(--text-secondary)] hover:text-white transition-colors flex items-center gap-1.5">
               <Github className="w-3.5 h-3.5" />
               <span className="hidden sm:inline">GitHub</span>
@@ -337,9 +339,9 @@ export default function Home() {
               <span className="text-[var(--accent)] glow-text">your agent?</span>
             </h1>
 
-            <p className="text-[16px] sm:text-[18px] text-[var(--text-secondary)] leading-[1.7] mb-8 max-w-[520px]">
-              One command scans your entire agent workspace — every config file,
-              every rule, every cross-reference — and tells you exactly what to fix.
+            <p className="text-[16px] sm:text-[18px] text-[var(--text-secondary)] leading-[1.7] mb-8 max-w-[540px]">
+              Score your agent&apos;s clarity, structure, security, and consistency in one command.
+              Catch leaked secrets, vague instructions, and broken references before they cost you.
             </p>
 
             {/* CTA */}
