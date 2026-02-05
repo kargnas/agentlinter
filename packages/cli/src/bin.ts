@@ -7,7 +7,7 @@ import { formatJSON } from './engine/reporter';
 import { uploadReport } from './upload';
 import { LintResult, Diagnostic } from './engine/types';
 
-const VERSION = "0.1.3";
+const VERSION = "0.1.4";
 
 /* ─── ANSI Colors ─── */
 const c = {
@@ -119,14 +119,14 @@ function formatTerminalColored(result: LintResult): string {
   let scoreColor = c.red;
   let scoreEmoji = "💀";
   let grade = "F";
-  if (result.totalScore >= 97) { scoreColor = c.magenta; scoreEmoji = "🏆"; grade = "S"; }
-  else if (result.totalScore >= 93) { scoreColor = c.magenta; scoreEmoji = "⭐"; grade = "A+"; }
-  else if (result.totalScore >= 88) { scoreColor = c.green; scoreEmoji = "🎯"; grade = "A"; }
-  else if (result.totalScore >= 83) { scoreColor = c.green; scoreEmoji = "✨"; grade = "A-"; }
-  else if (result.totalScore >= 78) { scoreColor = c.green; scoreEmoji = "👍"; grade = "B+"; }
-  else if (result.totalScore >= 72) { scoreColor = c.green; scoreEmoji = "👌"; grade = "B"; }
-  else if (result.totalScore >= 65) { scoreColor = c.yellow; scoreEmoji = "📝"; grade = "B-"; }
-  else if (result.totalScore >= 55) { scoreColor = c.yellow; scoreEmoji = "🔧"; grade = "C+"; }
+  if (result.totalScore >= 98) { scoreColor = c.magenta; scoreEmoji = "🏆"; grade = "S"; }
+  else if (result.totalScore >= 95) { scoreColor = c.magenta; scoreEmoji = "⭐"; grade = "A+"; }
+  else if (result.totalScore >= 90) { scoreColor = c.green; scoreEmoji = "🎯"; grade = "A"; }
+  else if (result.totalScore >= 85) { scoreColor = c.green; scoreEmoji = "✨"; grade = "A-"; }
+  else if (result.totalScore >= 80) { scoreColor = c.green; scoreEmoji = "👍"; grade = "B+"; }
+  else if (result.totalScore >= 75) { scoreColor = c.green; scoreEmoji = "👌"; grade = "B"; }
+  else if (result.totalScore >= 68) { scoreColor = c.yellow; scoreEmoji = "📝"; grade = "B-"; }
+  else if (result.totalScore >= 58) { scoreColor = c.yellow; scoreEmoji = "🔧"; grade = "C+"; }
   else if (result.totalScore >= 45) { scoreColor = c.red; scoreEmoji = "⚠️"; grade = "C"; }
   else if (result.totalScore >= 30) { scoreColor = c.red; scoreEmoji = "🚨"; grade = "D"; }
 
