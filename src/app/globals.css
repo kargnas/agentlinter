@@ -1,53 +1,64 @@
 @import "tailwindcss";
 
-:root {
-  --bg: #08080c;
-  --bg-elevated: #0f0f15;
-  --bg-card: #12121a;
-  --border: rgba(255, 255, 255, 0.06);
-  --border-hover: rgba(255, 255, 255, 0.12);
-  --text: #e8e6e3;
-  --text-secondary: #8a8a8e;
-  --text-dim: #555560;
-  --accent: #4ade80;
-  --accent-dim: rgba(74, 222, 128, 0.12);
-  --red: #f87171;
-  --amber: #fbbf24;
-  --blue: #60a5fa;
+@theme {
+  --color-bg: #08080c;
+  --color-bg-elevated: #0f0f15;
+  --color-bg-card: #12121a;
+  --color-border: rgba(255, 255, 255, 0.06);
+  --color-border-hover: rgba(255, 255, 255, 0.12);
+  --color-text: #e8e6e3;
+  --color-text-secondary: #8a8a8e;
+  --color-text-dim: #555560;
+  --color-accent: #4ade80;
+  --color-accent-dim: rgba(74, 222, 128, 0.12);
+  --color-red: #f87171;
+  --color-amber: #fbbf24;
+  --color-blue: #60a5fa;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+@layer base {
+  :root {
+    --bg: #08080c;
+    --bg-elevated: #0f0f15;
+    --bg-card: #12121a;
+    --border: rgba(255, 255, 255, 0.06);
+    --border-hover: rgba(255, 255, 255, 0.12);
+    --text: #e8e6e3;
+    --text-secondary: #8a8a8e;
+    --text-dim: #555560;
+    --accent: #4ade80;
+    --accent-dim: rgba(74, 222, 128, 0.12);
+    --red: #f87171;
+    --amber: #fbbf24;
+    --blue: #60a5fa;
+  }
 
-html {
-  scroll-behavior: smooth;
-  -webkit-text-size-adjust: 100%;
-}
+  html {
+    scroll-behavior: smooth;
+  }
 
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  line-height: 1.6;
-}
-
-code, pre, .mono {
-  font-family: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
-}
-
-::selection {
-  background: var(--accent);
-  color: black;
-}
-
-@supports (padding-top: env(safe-area-inset-top)) {
   body {
-    padding-top: env(safe-area-inset-top);
-    padding-bottom: env(safe-area-inset-bottom);
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    line-height: 1.6;
+  }
+
+  code, pre, .mono {
+    font-family: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
+  }
+
+  ::selection {
+    background: var(--accent);
+    color: black;
+  }
+
+  @supports (padding-top: env(safe-area-inset-top)) {
+    body {
+      padding-top: env(safe-area-inset-top);
+      padding-bottom: env(safe-area-inset-bottom);
+    }
   }
 }
