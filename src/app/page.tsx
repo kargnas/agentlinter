@@ -41,9 +41,8 @@ function Logo({ size = 24 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
       <rect width="32" height="32" rx="8" fill="url(#logo-grad)" />
-      <path d="M9 10.5L16 7L23 10.5V17L16 25L9 17V10.5Z" stroke="white" strokeWidth="1.5" strokeLinejoin="round" fill="none" />
-      <path d="M12 13L16 11L20 13V17L16 21L12 17V13Z" fill="rgba(255,255,255,0.15)" stroke="white" strokeWidth="1" strokeLinejoin="round" />
-      <circle cx="16" cy="15.5" r="1.5" fill="white" />
+      <path d="M16 6L24 10V18C24 22 20.4 25.4 16 27C11.6 25.4 8 22 8 18V10L16 6Z" fill="rgba(255,255,255,0.15)" stroke="white" strokeWidth="1.5" strokeLinejoin="round" />
+      <path d="M13 16L15 18L19 14" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
       <defs>
         <linearGradient id="logo-grad" x1="0" y1="0" x2="32" y2="32">
           <stop offset="0%" stopColor="#7c3aed" />
@@ -330,7 +329,7 @@ export default function Home() {
           <motion.div className="max-w-[700px]" initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[var(--teal-dim)] text-[var(--teal)] text-[12px] mono mb-5">
               <Sparkles className="w-3 h-3" />
-              Free &amp; Open Source
+              Optimized for CLAUDE.md · Free &amp; Open Source
             </div>
 
             <h1 className="display text-[40px] sm:text-[56px] lg:text-[72px] leading-[1.05] tracking-tight mb-5">
@@ -340,7 +339,7 @@ export default function Home() {
             </h1>
 
             <p className="text-[16px] sm:text-[18px] text-[var(--text-secondary)] leading-[1.7] mb-8 max-w-[540px]">
-              Lint your agent&apos;s clarity, structure, security, and consistency in one command.
+              Built on Anthropic&apos;s CLAUDE.md best practices. Lint your agent&apos;s clarity, structure, security, and consistency in one command.
               Catch leaked secrets, vague instructions, and broken references before they cost you.
             </p>
 
