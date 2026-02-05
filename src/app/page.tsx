@@ -448,10 +448,10 @@ export default function Home() {
               <a
                 href="https://github.com/seojoonkim/agentlinter"
                 target="_blank"
-                className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl border border-[var(--border)] text-[var(--text-secondary)] text-[14px] hover:text-white hover:border-[var(--accent)]/30 transition-all"
+                className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl border border-[var(--border)] text-[var(--text-secondary)] text-[14px] hover:text-white hover:border-[var(--border-hover)] transition-all"
               >
-                <Star className="w-3.5 h-3.5" />
-                Star on GitHub
+                <Github className="w-3.5 h-3.5" />
+                GitHub
               </a>
             </div>
           </motion.div>
@@ -657,34 +657,21 @@ export default function Home() {
       >
         <div className="max-w-[560px] mx-auto">
           <h2 className="text-[24px] sm:text-[32px] font-bold tracking-tight mb-10 sm:mb-12">
-            Get started in 10 seconds
+            Get started
           </h2>
 
           <div className="space-y-4">
-            {[
-              { step: "1", label: "Score your agent", cmd: "npx agentlinter score ." },
-              { step: "2", label: "Open your web report", cmd: "→ agentlinter.com/r/a3f8k2" },
-              { step: "3", label: "Fix & share", cmd: "npx agentlinter fix --auto" },
-            ].map((item) => (
-              <div
-                key={item.step}
-                className="flex items-center gap-4 p-4 sm:p-5 rounded-xl bg-[var(--bg-card)] border border-[var(--border)]"
-              >
-                <div className="w-8 h-8 rounded-lg bg-[var(--accent-dim)] flex items-center justify-center shrink-0">
-                  <span className="text-[var(--accent)] text-[13px] font-semibold mono">
-                    {item.step}
-                  </span>
-                </div>
-                <div className="flex-1 min-w-0">
-                  <div className="text-[12px] text-[var(--text-dim)] mb-0.5">
-                    {item.label}
-                  </div>
-                  <code className="text-[var(--accent)] text-[13px]">
-                    {item.cmd}
-                  </code>
-                </div>
+            <div className="p-5 sm:p-6 rounded-xl bg-[var(--bg-card)] border border-[var(--border)]">
+              <div className="text-[12px] text-[var(--text-dim)] mb-3">
+                One command. That&apos;s it.
               </div>
-            ))}
+              <code className="text-[var(--accent)] text-[15px] sm:text-[17px] mono">
+                npx agentlinter
+              </code>
+              <div className="text-[13px] text-[var(--text-secondary)] mt-4 leading-[1.7]">
+                Scores your agent → opens a web report with your tier, prescriptions, and share button.
+              </div>
+            </div>
           </div>
 
           <p className="text-[var(--text-dim)] text-[13px] mt-8 text-center">
