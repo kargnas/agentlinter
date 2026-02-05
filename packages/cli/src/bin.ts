@@ -7,7 +7,7 @@ import { formatJSON } from './engine/reporter';
 import { uploadReport } from './upload';
 import { LintResult, Diagnostic } from './engine/types';
 
-const VERSION = "0.1.6";
+const VERSION = "0.1.7";
 
 /* ─── ANSI Colors ─── */
 const c = {
@@ -168,19 +168,21 @@ function formatTerminalColored(result: LintResult): string {
 
   const criticals = sorted.filter(d => d.severity === 'critical');
   const warnings = sorted.filter(d => d.severity === 'warning');
+  const infos = sorted.filter(d => d.severity === 'info');
   
-  if (criticals.length > 0 || warnings.length > 0) {
+  {
       const parts = [];
       if (criticals.length) parts.push(`${c.red}${criticals.length} critical(s)${c.reset}`);
       if (warnings.length) parts.push(`${c.yellow}${warnings.length} warning(s)${c.reset}`);
-      lines.push(`📋 ${parts.join(", ")}`);
-      lines.push("");
+      if (infos.length) parts.push(`${c.blue}${infos.length} suggestion(s)${c.reset}`);
+      if (parts.length > 0) {
+        lines.push(`📋 ${parts.join(", ")}`);
+        lines.push("");
+      }
   }
 
   for (const diag of sorted) {
-    if (diag.severity === 'info') continue;
-
-    let icon = "ℹ️  INFO";
+    let icon = "💡 TIP ";
     let color = c.blue;
     if (diag.severity === "critical") { icon = "🔴 CRITICAL"; color = c.red; }
     else if (diag.severity === "warning") { icon = "⚠️  WARN"; color = c.yellow; }
