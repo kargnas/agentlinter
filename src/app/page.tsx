@@ -428,8 +428,13 @@ export default function Home() {
             </p>
           </motion.div>
 
+          {/* Prism Illustration */}
+          <div className="mt-12 sm:mt-16 mb-10 sm:mb-14">
+            <HeroPrism />
+          </div>
+
           {/* Terminal */}
-          <motion.div className="mt-14 sm:mt-20" initial={{ opacity: 0, y: 36 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.15 }}>
+          <motion.div initial={{ opacity: 0, y: 36 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.15 }}>
             <AnimatedTerminal />
           </motion.div>
         </div>
