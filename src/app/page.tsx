@@ -326,24 +326,24 @@ export default function Home() {
       <section className="pt-[120px] sm:pt-[140px] pb-8 sm:pb-12 px-6 sm:px-8">
         <div className="max-w-[1000px] mx-auto">
           <motion.div className="max-w-[700px]" initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[var(--teal-dim)] text-[var(--teal)] text-[12px] mono mb-7">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[var(--teal-dim)] text-[var(--teal)] text-[12px] mono mb-5">
               <Sparkles className="w-3 h-3" />
               Free &amp; Open Source
             </div>
 
-            <h1 className="display text-[40px] sm:text-[56px] lg:text-[72px] leading-[1.05] tracking-tight mb-7">
+            <h1 className="display text-[40px] sm:text-[56px] lg:text-[72px] leading-[1.05] tracking-tight mb-5">
               How sharp is
               <br />
               <span className="text-[var(--accent)] glow-text">your agent?</span>
             </h1>
 
-            <p className="text-[16px] sm:text-[18px] text-[var(--text-secondary)] leading-[1.7] mb-10 max-w-[520px]">
+            <p className="text-[16px] sm:text-[18px] text-[var(--text-secondary)] leading-[1.7] mb-8 max-w-[520px]">
               One command scans your entire agent workspace — every config file,
               every rule, every cross-reference — and tells you exactly what to fix.
             </p>
 
             {/* CTA */}
-            <div className="flex flex-col sm:flex-row gap-3 mb-6">
+            <div className="flex flex-col sm:flex-row gap-3 mb-5">
               <div className="inline-flex items-center gap-3 px-5 py-3.5 rounded-xl bg-[var(--bg-card)] border border-[var(--border)] hover:border-[var(--border-hover)] transition-all">
                 <Terminal className="w-4 h-4 text-[var(--text-dim)]" />
                 <CopyCommand command="npx agentlinter" className="text-[15px]" />
@@ -368,7 +368,7 @@ export default function Home() {
       </section>
 
       {/* ── Trust Bar ── */}
-      <section className="py-10 sm:py-14 px-6 sm:px-8 border-t border-[var(--border)]">
+      <section className="py-8 sm:py-10 px-6 sm:px-8 border-t border-[var(--border)]">
         <div className="max-w-[1000px] mx-auto">
           <p className="text-center text-[11px] sm:text-[12px] text-[var(--text-dim)] mono mb-6 tracking-wider uppercase">
             Built on open standards
@@ -395,7 +395,7 @@ export default function Home() {
       {/* ══════════════════════════════════════
          WHY IT MATTERS
          ══════════════════════════════════════ */}
-      <section id="why" className="py-24 sm:py-32 px-6 sm:px-8 border-t border-[var(--border)]">
+      <section id="why" className="py-18 sm:py-24 px-6 sm:px-8 border-t border-[var(--border)]">
         <div className="max-w-[1000px] mx-auto">
           <FadeIn>
             <p className="text-[12px] mono text-[var(--accent)] mb-4 tracking-wider uppercase">Why this matters</p>
@@ -407,7 +407,7 @@ export default function Home() {
           </FadeIn>
 
           <FadeIn delay={0.1}>
-            <p className="text-[15px] sm:text-[16px] text-[var(--text-secondary)] leading-[1.8] mb-16 max-w-[580px]">
+            <p className="text-[15px] sm:text-[16px] text-[var(--text-secondary)] leading-[1.8] mb-12 max-w-[580px]">
               A single CLAUDE.md file can dramatically change how your agent performs.
               Vague instructions produce vague results. Leaked secrets become vulnerabilities.
               Contradictions across files cause unpredictable behavior.
@@ -416,7 +416,7 @@ export default function Home() {
 
           {/* Anthropic quote */}
           <FadeIn delay={0.15}>
-            <div className="mb-16 p-6 sm:p-8 rounded-2xl bg-[var(--bg-card)] border border-[var(--border)] max-w-[640px]">
+            <div className="mb-12 p-6 sm:p-8 rounded-2xl bg-[var(--bg-card)] border border-[var(--border)] max-w-[640px]">
               <Quote className="w-5 h-5 text-[var(--accent)] mb-4 opacity-50" />
               <p className="text-[15px] sm:text-[16px] text-[var(--text)] leading-[1.8] mb-4 italic">
                 &ldquo;Be specific: &lsquo;Use 2-space indentation&rsquo; is better than &lsquo;Format code properly.&rsquo;&rdquo;
@@ -477,14 +477,14 @@ export default function Home() {
       {/* ══════════════════════════════════════
          HOW IT WORKS
          ══════════════════════════════════════ */}
-      <section id="how" className="py-24 sm:py-32 px-6 sm:px-8 border-t border-[var(--border)]">
+      <section id="how" className="py-18 sm:py-24 px-6 sm:px-8 border-t border-[var(--border)]">
         <div className="max-w-[1000px] mx-auto">
           <FadeIn>
             <p className="text-[12px] mono text-[var(--teal)] mb-4 tracking-wider uppercase">How it works</p>
-            <h2 className="display text-[28px] sm:text-[40px] lg:text-[48px] leading-[1.1] tracking-tight mb-6">
+            <h2 className="display text-[28px] sm:text-[40px] lg:text-[48px] leading-[1.1] tracking-tight mb-5">
               One command. Full diagnosis.
             </h2>
-            <p className="text-[15px] text-[var(--text-secondary)] leading-[1.7] mb-16 max-w-[520px]">
+            <p className="text-[15px] text-[var(--text-secondary)] leading-[1.7] mb-12 max-w-[520px]">
               No setup. No config files. Point it at your workspace and get an instant, actionable report.
             </p>
           </FadeIn>
@@ -516,7 +516,7 @@ export default function Home() {
             ].map((item, i) => (
               <FadeIn key={item.step} delay={0.1 * i}>
                 <div className="p-6 sm:p-7 rounded-2xl bg-[var(--bg-card)] border border-[var(--border)] hover:border-[var(--border-hover)] transition-all h-full group">
-                  <div className="flex items-center justify-between mb-6">
+                  <div className="flex items-center justify-between mb-5">
                     <span className="text-[11px] mono text-[var(--teal)] bg-[var(--teal-dim)] px-2.5 py-1 rounded-lg">{item.step}</span>
                     <item.icon className="w-5 h-5 text-[var(--text-dim)] group-hover:text-[var(--teal)] transition-colors" />
                   </div>
@@ -533,14 +533,14 @@ export default function Home() {
       {/* ══════════════════════════════════════
          FIVE DIMENSIONS (technical depth)
          ══════════════════════════════════════ */}
-      <section className="py-24 sm:py-32 px-6 sm:px-8 border-t border-[var(--border)]">
+      <section className="py-18 sm:py-24 px-6 sm:px-8 border-t border-[var(--border)]">
         <div className="max-w-[1000px] mx-auto">
           <FadeIn>
             <p className="text-[12px] mono text-[var(--accent)] mb-4 tracking-wider uppercase">Scoring Engine</p>
-            <h2 className="display text-[28px] sm:text-[40px] lg:text-[48px] leading-[1.1] tracking-tight mb-6">
+            <h2 className="display text-[28px] sm:text-[40px] lg:text-[48px] leading-[1.1] tracking-tight mb-5">
               Five dimensions. Real rules.
             </h2>
-            <p className="text-[15px] text-[var(--text-secondary)] leading-[1.7] mb-16 max-w-[560px]">
+            <p className="text-[15px] text-[var(--text-secondary)] leading-[1.7] mb-12 max-w-[560px]">
               Not a vibe check. Every score is backed by specific, documented rules
               derived from Anthropic&apos;s guidelines, security best practices, and
               patterns from high-performing agent workspaces.
@@ -622,7 +622,7 @@ export default function Home() {
       {/* ══════════════════════════════════════
          VS ANTHROPIC OFFICIAL
          ══════════════════════════════════════ */}
-      <section id="compare" className="py-24 sm:py-32 px-6 sm:px-8 border-t border-[var(--border)]">
+      <section id="compare" className="py-18 sm:py-24 px-6 sm:px-8 border-t border-[var(--border)]">
         <div className="max-w-[1000px] mx-auto">
           <FadeIn>
             <p className="text-[12px] mono text-[var(--teal)] mb-4 tracking-wider uppercase">How we&apos;re different</p>
@@ -710,9 +710,9 @@ export default function Home() {
       {/* ══════════════════════════════════════
          REPORT + SHARE
          ══════════════════════════════════════ */}
-      <section className="py-24 sm:py-32 px-6 sm:px-8 border-t border-[var(--border)]">
+      <section className="py-18 sm:py-24 px-6 sm:px-8 border-t border-[var(--border)]">
         <div className="max-w-[1000px] mx-auto">
-          <div className="grid lg:grid-cols-2 gap-16 lg:gap-20 items-center">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             <FadeIn>
               <div>
                 <p className="text-[12px] mono text-[var(--accent)] mb-4 tracking-wider uppercase">Reports</p>
@@ -756,14 +756,14 @@ export default function Home() {
       {/* ══════════════════════════════════════
          SELF-EVOLVING
          ══════════════════════════════════════ */}
-      <section className="py-24 sm:py-32 px-6 sm:px-8 border-t border-[var(--border)]">
+      <section className="py-18 sm:py-24 px-6 sm:px-8 border-t border-[var(--border)]">
         <div className="max-w-[1000px] mx-auto">
           <FadeIn>
             <p className="text-[12px] mono text-[var(--teal)] mb-4 tracking-wider uppercase">Intelligence</p>
             <h2 className="display text-[28px] sm:text-[40px] leading-[1.1] tracking-tight mb-5">
               Rules that learn.
             </h2>
-            <p className="text-[15px] text-[var(--text-secondary)] leading-[1.7] mb-16 max-w-[540px]">
+            <p className="text-[15px] text-[var(--text-secondary)] leading-[1.7] mb-12 max-w-[540px]">
               Every lint teaches us something. Common failures become new rules.
               Bad fixes get replaced. The engine improves with every run.
             </p>
@@ -815,7 +815,7 @@ export default function Home() {
       {/* ══════════════════════════════════════
          PRIVACY & SECURITY
          ══════════════════════════════════════ */}
-      <section id="privacy" className="py-24 sm:py-32 px-6 sm:px-8 border-t border-[var(--border)]">
+      <section id="privacy" className="py-18 sm:py-24 px-6 sm:px-8 border-t border-[var(--border)]">
         <div className="max-w-[1000px] mx-auto">
           <FadeIn>
             <p className="text-[12px] mono text-[var(--teal)] mb-4 tracking-wider uppercase">Privacy &amp; Security</p>
@@ -824,7 +824,7 @@ export default function Home() {
               <br />
               <span className="text-[var(--teal)]">your machine.</span>
             </h2>
-            <p className="text-[15px] text-[var(--text-secondary)] leading-[1.7] mb-16 max-w-[560px]">
+            <p className="text-[15px] text-[var(--text-secondary)] leading-[1.7] mb-12 max-w-[560px]">
               AgentLinter runs 100% locally. No cloud. No API calls. No telemetry by default.
               Your agent configs — which may contain sensitive instructions, personal context,
               and security rules — stay exactly where they are.
@@ -907,7 +907,7 @@ export default function Home() {
       {/* ══════════════════════════════════════
          GET STARTED (bold CTA)
          ══════════════════════════════════════ */}
-      <section id="start" className="py-28 sm:py-36 px-6 sm:px-8 border-t border-[var(--border)] relative overflow-hidden">
+      <section id="start" className="py-22 sm:py-28 px-6 sm:px-8 border-t border-[var(--border)] relative overflow-hidden">
         {/* Background glow */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
           <div className="w-[600px] h-[400px] rounded-full bg-[var(--accent)] opacity-[0.03] blur-[120px]" />
@@ -915,24 +915,24 @@ export default function Home() {
 
         <div className="max-w-[640px] mx-auto text-center relative z-10">
           <FadeIn>
-            <h2 className="display text-[32px] sm:text-[48px] lg:text-[56px] leading-[1.1] tracking-tight mb-6">
+            <h2 className="display text-[32px] sm:text-[48px] lg:text-[56px] leading-[1.1] tracking-tight mb-5">
               One command.
               <br />
               <span className="text-[var(--accent)] glow-text">Try it now.</span>
             </h2>
-            <p className="text-[15px] text-[var(--text-secondary)] leading-[1.7] mb-10 max-w-[440px] mx-auto">
+            <p className="text-[15px] text-[var(--text-secondary)] leading-[1.7] mb-8 max-w-[440px] mx-auto">
               Run it in your agent workspace. Get your score in seconds.
               No signup. No API key. No config.
             </p>
           </FadeIn>
 
           <FadeIn delay={0.1}>
-            <div className="inline-flex items-center gap-3 px-6 py-4 rounded-2xl bg-[var(--bg-card)] border border-[var(--border)] glow-accent mb-6">
+            <div className="inline-flex items-center gap-3 px-6 py-4 rounded-2xl bg-[var(--bg-card)] border border-[var(--border)] glow-accent mb-5">
               <Terminal className="w-5 h-5 text-[var(--text-dim)]" />
               <CopyCommand command="npx agentlinter" className="text-[17px] sm:text-[19px]" />
             </div>
 
-            <p className="text-[12px] text-[var(--text-dim)] mono mb-12">
+            <p className="text-[12px] text-[var(--text-dim)] mono mb-8">
               100% free &amp; open source · Click to copy · Node.js 18+
             </p>
 
@@ -955,7 +955,7 @@ export default function Home() {
       {/* ══════════════════════════════════════
          SPREAD THE WORD
          ══════════════════════════════════════ */}
-      <section className="py-16 sm:py-20 px-6 sm:px-8 border-t border-[var(--border)]">
+      <section className="py-12 sm:py-16 px-6 sm:px-8 border-t border-[var(--border)]">
         <div className="max-w-[600px] mx-auto text-center">
           <FadeIn>
             <div className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-[var(--teal-dim)] mb-5">
