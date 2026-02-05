@@ -134,13 +134,13 @@ function AnimatedTerminal() {
     { text: "  ├─ Security      █████████░  90", type: "detail" },
     { text: "  └─ Consistency   ██████░░░░  60", type: "detail" },
     { text: "", type: "blank" },
-    { text: "  2 errors · 3 warnings", type: "warning" },
+    { text: "  2 critical(s) · 3 warning(s)", type: "warning" },
     { text: "", type: "blank" },
-    { text: '  ERR  TOOLS.md:14 — Secret: API key pattern "sk-proj-..."', type: "error" },
-    { text: "  ERR  SOUL.md ↔ CLAUDE.md — Conflicting persona definition", type: "error" },
-    { text: '  WARN CLAUDE.md:28 — Vague: "be helpful" → be specific', type: "warn" },
-    { text: "  WARN No error recovery strategy defined", type: "warn" },
-    { text: "  WARN 2 cross-file references broken", type: "warn" },
+    { text: '  🔴 CRITICAL  TOOLS.md:14 — Secret: API key pattern "sk-proj-..."', type: "error" },
+    { text: "  🔴 CRITICAL  SOUL.md ↔ CLAUDE.md — Conflicting persona definition", type: "error" },
+    { text: '  ⚠️  WARN  CLAUDE.md:28 — Vague: "be helpful" → be specific', type: "warn" },
+    { text: "  ⚠️  WARN  No error recovery strategy defined", type: "warn" },
+    { text: "  ⚠️  WARN  2 cross-file references broken", type: "warn" },
     { text: "", type: "blank" },
     { text: "  💡 3 issues with suggested fixes. See report for details.", type: "success" },
     { text: "  📊 Report → agentlinter.com/r/a3f8k2", type: "success" },
@@ -262,9 +262,9 @@ function ScoreCardPreview() {
             <div className="text-[11px] text-[var(--text-dim)] mono mb-2">Top issues</div>
             <div className="space-y-1.5">
               {[
-                { type: "ERR", text: "Rotate exposed API key", color: "var(--red)" },
+                { type: "CRITICAL", text: "Rotate exposed API key", color: "var(--red)" },
                 { type: "WARN", text: "Add error recovery strategy", color: "var(--amber)" },
-                { type: "FIX", text: "3 issues auto-fixable", color: "var(--green)" },
+                { type: "TIP", text: "3 issues with suggested fixes", color: "var(--teal)" },
               ].map((p, i) => (
                 <div key={i} className="flex items-center gap-2">
                   <span className="text-[9px] mono px-1 rounded" style={{ color: p.color, backgroundColor: `${p.color}15` }}>{p.type}</span>
@@ -569,35 +569,35 @@ export default function Home() {
                 weight: "20%",
                 icon: Layers,
                 rules: ["File organization & naming conventions", "Section separation & hierarchy", "Required files present (CLAUDE.md, etc.)", "Consistent frontmatter format"],
-                example: 'ERR  Missing TOOLS.md — referenced in CLAUDE.md:12',
+                example: '🔴 CRITICAL  Missing TOOLS.md — referenced in CLAUDE.md:12',
               },
               {
                 title: "Clarity",
                 weight: "25%",
                 icon: Eye,
                 rules: ["Naked conditionals without criteria", "Compound instructions (too many per line)", "Ambiguous pronouns & vague language", "Missing priority signals (P0/P1/P2)"],
-                example: 'WARN "be helpful" → specify: response length, tone, format',
+                example: '⚠️ WARN "be helpful" → specify: response length, tone, format',
               },
               {
                 title: "Completeness",
                 weight: "20%",
                 icon: FileText,
                 rules: ["Identity / persona defined", "Tool documentation present", "Boundaries & constraints set", "Memory & handoff strategy"],
-                example: 'WARN No error recovery workflow — add escalation path',
+                example: '⚠️ WARN No error recovery workflow — add escalation path',
               },
               {
                 title: "Security",
                 weight: "20%",
                 icon: Shield,
                 rules: ["API key / token / password detection", "Injection defense instructions", "Permission boundaries defined", "Sensitive data handling rules"],
-                example: 'ERR  Secret: API key pattern "sk-proj-..." in TOOLS.md:14',
+                example: '🔴 CRITICAL  Secret: API key "sk-proj-..." in TOOLS.md:14',
               },
               {
                 title: "Consistency",
                 weight: "15%",
                 icon: GitBranch,
                 rules: ["Cross-file reference integrity", "Persona alignment (SOUL ↔ CLAUDE)", "Permission conflict detection", "Language mixing patterns (ko/en)"],
-                example: 'ERR  SOUL.md persona ≠ CLAUDE.md persona — reconcile',
+                example: '🔴 CRITICAL  SOUL.md persona ≠ CLAUDE.md persona — reconcile',
               },
               {
                 title: "Custom Rules",
@@ -658,43 +658,43 @@ export default function Home() {
           {/* Comparison table */}
           <FadeIn delay={0.1}>
             <div className="rounded-2xl border border-[var(--border)] overflow-hidden overflow-x-auto">
-              <div className="grid grid-cols-3 bg-white/[0.02] min-w-[600px]">
-                <div className="p-4 sm:p-5 border-r border-[var(--border)]">
-                  <span className="text-[13px] text-[var(--text-dim)] mono">Feature</span>
+              <div className="grid grid-cols-[140px_1fr_1fr] bg-white/[0.02] min-w-[600px]">
+                <div className="px-4 py-2.5 sm:px-5 sm:py-3 border-r border-[var(--border)]">
+                  <span className="text-[12px] text-[var(--text-dim)] mono">Feature</span>
                 </div>
-                <div className="p-4 sm:p-5 border-r border-[var(--border)] text-center">
-                  <div className="text-[14px] text-[var(--text-secondary)]">Claude Code</div>
-                  <div className="text-[11px] text-[var(--text-dim)] mono mt-0.5">Anthropic Official</div>
+                <div className="px-4 py-2.5 sm:px-5 sm:py-3 border-r border-[var(--border)] text-center">
+                  <div className="text-[13px] text-[var(--text-secondary)]">Claude Code</div>
+                  <div className="text-[10px] text-[var(--text-dim)] mono mt-0.5">Anthropic Official</div>
                 </div>
-                <div className="p-4 sm:p-5 text-center">
-                  <div className="text-[14px] font-semibold text-[var(--accent)]">AgentLinter</div>
+                <div className="px-4 py-2.5 sm:px-5 sm:py-3 text-center">
+                  <div className="text-[13px] font-semibold text-[var(--accent)]">AgentLinter</div>
                 </div>
               </div>
 
               {[
                 { feature: "Scoring", official: "Basic via /init", ours: "5-category (0-100) per file", os: "partial", us: "full" },
                 { feature: "Scope", official: "Single CLAUDE.md", ours: "Full workspace (all files)", os: "partial", us: "full" },
-                { feature: "Cross-file checks", official: "—", ours: "Contradiction detection", os: "none", us: "full" },
-                { feature: "Secret scanning", official: "—", ours: "Keys, tokens, passwords", os: "none", us: "full" },
+                { feature: "Cross-file checks", official: "✕", ours: "Contradiction detection", os: "none", us: "full" },
+                { feature: "Secret scanning", official: "✕", ours: "Keys, tokens, passwords", os: "none", us: "full" },
                 { feature: "Fix guidance", official: "Prompting suggestions", ours: "Actionable fix per issue", os: "partial", us: "full" },
-                { feature: "Custom rules", official: "—", ours: ".agentlinterrc per team", os: "none", us: "full" },
-                { feature: "CI/CD", official: "—", ours: "GitHub Action per PR", os: "none", us: "full" },
+                { feature: "Custom rules", official: "✕", ours: ".agentlinterrc per team", os: "none", us: "full" },
+                { feature: "CI/CD", official: "✕", ours: "GitHub Action per PR", os: "none", us: "full" },
                 { feature: "Templates", official: "/init bootstrap", ours: "4 starter templates", os: "partial", us: "full" },
-                { feature: "Reports", official: "—", ours: "Web report + Share on X", os: "none", us: "full" },
+                { feature: "Reports", official: "✕", ours: "Web report + Share on X", os: "none", us: "full" },
                 { feature: "Frameworks", official: "Claude Code only", ours: "CC, Clawdbot, Cursor, Windsurf", os: "partial", us: "full" },
               ].map((row, i) => (
-                <div key={row.feature} className={`grid grid-cols-3 min-w-[600px] ${i % 2 === 0 ? "bg-[var(--bg)]" : "bg-white/[0.01]"}`}>
-                  <div className="p-4 sm:p-5 border-r border-t border-[var(--border)]">
-                    <span className="text-[14px] font-medium">{row.feature}</span>
+                <div key={row.feature} className={`grid grid-cols-[140px_1fr_1fr] min-w-[600px] ${i % 2 === 0 ? "bg-[var(--bg)]" : "bg-white/[0.01]"}`}>
+                  <div className="px-4 py-2.5 sm:px-5 sm:py-3 border-r border-t border-[var(--border)]">
+                    <span className="text-[13px] font-medium">{row.feature}</span>
                   </div>
-                  <div className="p-4 sm:p-5 border-r border-t border-[var(--border)] flex items-start gap-2">
-                    {row.os === "full" ? <CircleCheck className="w-3.5 h-3.5 text-[var(--green)] mt-0.5 shrink-0" /> :
-                     row.os === "partial" ? <CircleMinus className="w-3.5 h-3.5 text-[var(--amber)] mt-0.5 shrink-0" /> :
-                     <Minus className="w-3.5 h-3.5 text-[var(--text-dim)] mt-0.5 shrink-0" />}
+                  <div className="px-4 py-2.5 sm:px-5 sm:py-3 border-r border-t border-[var(--border)] flex items-center gap-2">
+                    {row.os === "full" ? <CircleCheck className="w-3.5 h-3.5 text-[var(--green)] shrink-0" /> :
+                     row.os === "partial" ? <CircleMinus className="w-3.5 h-3.5 text-[var(--amber)] shrink-0" /> :
+                     <Minus className="w-3.5 h-3.5 text-[var(--text-dim)] shrink-0" />}
                     <span className="text-[13px] text-[var(--text-secondary)]">{row.official}</span>
                   </div>
-                  <div className="p-4 sm:p-5 border-t border-[var(--border)] flex items-start gap-2">
-                    <CircleCheck className="w-3.5 h-3.5 text-[var(--accent)] mt-0.5 shrink-0" />
+                  <div className="px-4 py-2.5 sm:px-5 sm:py-3 border-t border-[var(--border)] flex items-center gap-2">
+                    <CircleCheck className="w-3.5 h-3.5 text-[var(--accent)] shrink-0" />
                     <span className="text-[13px] text-[var(--text-secondary)]">{row.ours}</span>
                   </div>
                 </div>
@@ -743,7 +743,7 @@ export default function Home() {
                 <div className="space-y-3.5">
                   {[
                     "Tier grades: S → A+ → A → B+ → B → C",
-                    "Exact prescriptions with auto-fix markers",
+                    "Exact prescriptions with actionable fix suggestions",
                     "Percentile ranking against all agents",
                     "Progress tracking: watch 72 become 89",
                     "One-click share on X with Score Card image",
