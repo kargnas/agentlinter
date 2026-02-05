@@ -7,7 +7,7 @@ import { formatJSON } from './engine/reporter';
 import { uploadReport } from './upload';
 import { LintResult, Diagnostic } from './engine/types';
 
-const VERSION = "0.1.0";
+const VERSION = "0.1.1";
 
 /* ─── ANSI Colors ─── */
 const c = {
@@ -27,13 +27,15 @@ async function main() {
   const args = process.argv.slice(2);
   let targetDir = process.cwd();
   let jsonOutput = false;
-  let share = false;
+  let share = true; // share by default
+  let local = false;
 
   // Parse args
   for (let i = 0; i < args.length; i++) {
     const arg = args[i];
     if (arg === '--json') jsonOutput = true;
     else if (arg === '--share') share = true;
+    else if (arg === '--local' || arg === '--no-share') { share = false; local = true; }
     else if (arg === 'score') continue;
     else if (arg === '--help' || arg === '-h') {
       printHelp();
@@ -72,16 +74,30 @@ async function main() {
     }
 
     if (share) {
-      if (!jsonOutput) console.log(`${c.dim}Uploading report...${c.reset}`);
-      const { url } = await uploadReport(result);
-      if (jsonOutput) {
-        // We already printed JSON. 
-        // We can't easily append to the JSON without parsing it back or modifying formatJSON.
-        // For CLI tools, usually logs go to stderr if stdout is JSON.
-        console.error(`Link: ${url}`);
-      } else {
-        console.log(`\n🔗 Share your score: ${c.bold}${c.blue}${url}${c.reset}`);
-        console.log(`${c.dim}Share on X: https://x.com/intent/tweet?text=${encodeURIComponent(`I scored ${result.totalScore}/100 on AgentLinter! Check it out: ${url}`)}${c.reset}\n`);
+      if (!jsonOutput) console.log(`\n${c.dim}Generating report link...${c.reset}`);
+      try {
+        const { url } = await uploadReport(result);
+        if (jsonOutput) {
+          console.error(`Link: ${url}`);
+        } else {
+          console.log("");
+          console.log(`  ┌─────────────────────────────────────────────────┐`);
+          console.log(`  │                                                 │`);
+          console.log(`  │  ${c.bold}📊 View full report & share your score${c.reset}        │`);
+          console.log(`  │                                                 │`);
+          console.log(`  │  ${c.cyan}${c.bold}→ ${url}${c.reset}`);
+          console.log(`  │                                                 │`);
+          console.log(`  └─────────────────────────────────────────────────┘`);
+          console.log(`\n  ${c.dim}Share on X: https://x.com/intent/tweet?text=${encodeURIComponent(`I scored ${result.totalScore}/100 on AgentLinter! ${url}`)}${c.reset}\n`);
+        }
+      } catch (err) {
+        if (!jsonOutput) {
+          console.log(`\n${c.dim}(Could not upload report. Use --local to skip.)${c.reset}\n`);
+        }
+      }
+    } else {
+      if (!jsonOutput) {
+        console.log(`\n${c.dim}Run without --local to get a shareable report link.${c.reset}\n`);
       }
     }
 
@@ -169,10 +185,14 @@ function printHelp() {
 ${c.bold}AgentLinter CLI${c.reset}
 
 Usage:
-  npx agentlinter [path]
-  npx agentlinter score [path]
-  npx agentlinter --json
-  npx agentlinter --share
+  npx agentlinter [path]       Lint & share report (default)
+  npx agentlinter --local      Lint without uploading
+  npx agentlinter --json       Output raw JSON
+
+Options:
+  --local, --no-share  Skip report upload
+  --json               JSON output to stdout
+  -h, --help           Show this help
 `);
 }
 
