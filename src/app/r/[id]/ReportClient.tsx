@@ -881,16 +881,16 @@ export default function ReportPage({ data }: { data: ReportData }) {
               <h3 className="text-[15px] font-semibold mb-3">Deductions</h3>
               <div className="space-y-2.5">
                 {SCORING_METHODOLOGY.deductions.map((d) => (
-                  <div key={d.severity} className="flex items-center gap-3">
+                  <div key={d.severity} className="flex items-start gap-3">
                     <div
-                      className="flex items-center justify-center w-[44px] h-[28px] rounded-lg mono text-[13px] font-bold shrink-0"
+                      className="flex items-center justify-center w-[44px] h-[28px] rounded-lg mono text-[13px] font-bold shrink-0 mt-0.5"
                       style={{ color: d.color, backgroundColor: `color-mix(in srgb, ${d.color} 12%, transparent)` }}
                     >
                       {d.points}
                     </div>
-                    <div className="flex-1">
+                    <div className="flex-1 min-w-0">
                       <span className="text-[13px] font-medium" style={{ color: d.color }}>{d.severity}</span>
-                      <span className="text-[12px] text-[var(--text-dim)] ml-2">{d.description}</span>
+                      <span className="text-[12px] text-[var(--text-dim)] ml-1.5 break-words">{d.description}</span>
                     </div>
                   </div>
                 ))}
@@ -900,10 +900,10 @@ export default function ReportPage({ data }: { data: ReportData }) {
             {/* Bonuses */}
             <div>
               <h3 className="text-[15px] font-semibold mb-3">Bonus Points</h3>
-              <div className="space-y-1.5">
+              <div className="space-y-2.5">
                 {SCORING_METHODOLOGY.bonuses.map((b) => (
-                  <div key={b.category} className="flex items-start gap-2.5 text-[12px]">
-                    <span className="text-[var(--green)] mono font-medium w-[80px]">{b.category}</span>
+                  <div key={b.category} className="flex flex-col sm:flex-row sm:items-start gap-1 sm:gap-3 text-[12px]">
+                    <span className="text-[var(--green)] mono font-medium shrink-0 sm:w-[100px]">{b.category}</span>
                     <span className="text-[var(--text-secondary)]">{b.description}</span>
                   </div>
                 ))}
