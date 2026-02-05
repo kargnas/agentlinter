@@ -147,9 +147,94 @@ function AnimatedTerminal() {
 }
 
 /* ────────────────────────────────────────
+   Tier System
+   ──────────────────────────────────────── */
+function getTier(score: number) {
+  if (score >= 95) return { grade: "S", color: "#c084fc", bg: "#c084fc20" };
+  if (score >= 90) return { grade: "A+", color: "#a78bfa", bg: "#a78bfa20" };
+  if (score >= 85) return { grade: "A", color: "#818cf8", bg: "#818cf820" };
+  if (score >= 80) return { grade: "A-", color: "#60a5fa", bg: "#60a5fa20" };
+  if (score >= 75) return { grade: "B+", color: "#34d399", bg: "#34d39920" };
+  if (score >= 70) return { grade: "B", color: "#4ade80", bg: "#4ade8020" };
+  if (score >= 65) return { grade: "B-", color: "#fbbf24", bg: "#fbbf2420" };
+  if (score >= 60) return { grade: "C+", color: "#fb923c", bg: "#fb923c20" };
+  if (score >= 55) return { grade: "C", color: "#f87171", bg: "#f8717120" };
+  return { grade: "D", color: "#ef4444", bg: "#ef444420" };
+}
+
+/* ────────────────────────────────────────
+   Score Histogram
+   ──────────────────────────────────────── */
+function ScoreHistogram({ userScore }: { userScore: number }) {
+  // Simulated distribution (bell curve skewed left)
+  const bins = [
+    { range: "0-29", count: 3 },
+    { range: "30-39", count: 5 },
+    { range: "40-49", count: 12 },
+    { range: "50-59", count: 22 },
+    { range: "60-69", count: 35 },
+    { range: "70-79", count: 28 },
+    { range: "80-89", count: 15 },
+    { range: "90-100", count: 6 },
+  ];
+  const maxCount = Math.max(...bins.map((b) => b.count));
+  const userBinIdx = Math.min(Math.floor((userScore - (userScore < 30 ? 0 : 30)) / 10) + (userScore < 30 ? 0 : 1), bins.length - 1);
+  // More precise: find the bin
+  const getUserBin = () => {
+    if (userScore < 30) return 0;
+    if (userScore < 40) return 1;
+    if (userScore < 50) return 2;
+    if (userScore < 60) return 3;
+    if (userScore < 70) return 4;
+    if (userScore < 80) return 5;
+    if (userScore < 90) return 6;
+    return 7;
+  };
+  const activeBin = getUserBin();
+
+  return (
+    <div>
+      <div className="flex items-end gap-[3px] h-[48px]">
+        {bins.map((bin, i) => {
+          const height = (bin.count / maxCount) * 100;
+          const isActive = i === activeBin;
+          return (
+            <div key={bin.range} className="flex-1 flex flex-col items-center">
+              <div
+                className="w-full rounded-sm transition-all"
+                style={{
+                  height: `${height}%`,
+                  backgroundColor: isActive ? "var(--accent)" : "rgba(255,255,255,0.08)",
+                  minHeight: "2px",
+                }}
+              />
+            </div>
+          );
+        })}
+      </div>
+      <div className="flex gap-[3px] mt-1">
+        {bins.map((bin, i) => (
+          <div
+            key={bin.range}
+            className="flex-1 text-center text-[8px] mono"
+            style={{ color: i === activeBin ? "var(--accent)" : "var(--text-dim)" }}
+          >
+            {i === 0 ? "0" : i === bins.length - 1 ? "100" : ""}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* ────────────────────────────────────────
    Score Card Preview
    ──────────────────────────────────────── */
 function ScoreCardPreview() {
+  const score = 87;
+  const tier = getTier(score);
+  const percentile = 12;
+
   const cats = [
     { label: "Structure", score: 80 },
     { label: "Clarity", score: 90 },
@@ -160,48 +245,77 @@ function ScoreCardPreview() {
 
   return (
     <motion.div
-      className="w-full max-w-[340px] mx-auto"
+      className="w-full max-w-[360px] mx-auto"
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
     >
       <div className="rounded-2xl p-6 sm:p-8 bg-gradient-to-br from-[#1c1530] to-[#0e0b1a] border border-[var(--border)]">
-        <div className="flex items-center gap-2 mb-6 text-[var(--text-secondary)] text-sm">
-          <Search className="w-4 h-4" />
-          <span>AgentLinter Score</span>
+        {/* Header */}
+        <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center gap-2 text-[var(--text-secondary)] text-sm">
+            <Logo size={16} />
+            <span>AgentLinter</span>
+          </div>
+          <div
+            className="px-2.5 py-0.5 rounded-md text-[13px] font-bold mono"
+            style={{ color: tier.color, backgroundColor: tier.bg }}
+          >
+            {tier.grade}
+          </div>
         </div>
 
-        <div className="text-center mb-6">
-          <span className="text-6xl font-bold text-white">87</span>
+        {/* Score */}
+        <div className="text-center mb-2">
+          <span className="text-6xl font-bold text-white">{score}</span>
           <span className="text-[var(--text-dim)] text-lg ml-1">/100</span>
         </div>
 
-        <div className="space-y-3 mb-6">
-          {cats.map((c) => (
-            <div key={c.label} className="flex items-center gap-3">
-              <span className="text-[12px] text-[var(--text-secondary)] w-[90px] text-right mono">
-                {c.label}
-              </span>
-              <div className="flex-1 h-1.5 bg-white/5 rounded-full overflow-hidden">
-                <div
-                  className="h-full bg-[var(--accent)] rounded-full"
-                  style={{ width: `${c.score}%`, opacity: 0.7 + (c.score / 400) }}
-                />
-              </div>
-              <span className="text-[12px] text-[var(--text-secondary)] w-6 mono">
-                {c.score}
-              </span>
-            </div>
-          ))}
+        {/* Percentile */}
+        <div className="text-center mb-6">
+          <span className="text-[12px] mono" style={{ color: tier.color }}>
+            Top {percentile}% of all agents
+          </span>
         </div>
 
-        <div className="text-center text-sm text-[var(--amber)]">
-          <Trophy className="w-3.5 h-3.5 inline mr-1.5" />
-          Top 12% of all agents
+        {/* Category bars */}
+        <div className="space-y-3 mb-6">
+          {cats.map((c) => {
+            const catTier = getTier(c.score);
+            return (
+              <div key={c.label} className="flex items-center gap-3">
+                <span className="text-[12px] text-[var(--text-secondary)] w-[90px] text-right mono">
+                  {c.label}
+                </span>
+                <div className="flex-1 h-1.5 bg-white/5 rounded-full overflow-hidden">
+                  <div
+                    className="h-full rounded-full"
+                    style={{
+                      width: `${c.score}%`,
+                      backgroundColor: catTier.color,
+                      opacity: 0.7 + (c.score / 400),
+                    }}
+                  />
+                </div>
+                <span className="text-[12px] w-6 mono" style={{ color: catTier.color }}>
+                  {c.score}
+                </span>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Histogram */}
+        <div className="pt-4 border-t border-[var(--border)]">
+          <div className="flex items-center justify-between mb-2">
+            <span className="text-[10px] text-[var(--text-dim)] mono">Score Distribution</span>
+            <span className="text-[10px] mono" style={{ color: tier.color }}>
+              Top {percentile}%
+            </span>
+          </div>
+          <ScoreHistogram userScore={score} />
         </div>
       </div>
-
-      {/* Share button only appears after running lint */}
     </motion.div>
   );
 }
