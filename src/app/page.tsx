@@ -40,25 +40,24 @@ import {
 function Logo({ size = 24 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect width="32" height="32" rx="8" fill="url(#logo-grad)" />
-      {/* DNA double helix — two strands with rungs */}
+      {/* DNA double helix — no background rect */}
       {/* Left strand (S-curve) */}
-      <path d="M10 6 C10 10, 22 12, 22 16 C22 20, 10 22, 10 26" stroke="white" strokeWidth="1.5" strokeLinecap="round" fill="none" opacity="0.9" />
+      <path d="M10 4 C10 9, 22 11, 22 16 C22 21, 10 23, 10 28" stroke="url(#strand-left)" strokeWidth="2" strokeLinecap="round" fill="none" />
       {/* Right strand (mirrored S-curve) */}
-      <path d="M22 6 C22 10, 10 12, 10 16 C10 20, 22 22, 22 26" stroke="#5eead4" strokeWidth="1.5" strokeLinecap="round" fill="none" opacity="0.9" />
+      <path d="M22 4 C22 9, 10 11, 10 16 C10 21, 22 23, 22 28" stroke="#5eead4" strokeWidth="2" strokeLinecap="round" fill="none" />
       {/* Horizontal rungs connecting strands */}
-      <line x1="12" y1="9" x2="20" y2="9" stroke="rgba(255,255,255,0.25)" strokeWidth="1" />
-      <line x1="14" y1="13" x2="18" y2="13" stroke="rgba(255,255,255,0.25)" strokeWidth="1" />
-      <line x1="14" y1="19" x2="18" y2="19" stroke="rgba(255,255,255,0.25)" strokeWidth="1" />
-      <line x1="12" y1="23" x2="20" y2="23" stroke="rgba(255,255,255,0.25)" strokeWidth="1" />
+      <line x1="12" y1="8" x2="20" y2="8" stroke="currentColor" strokeWidth="1" opacity="0.2" />
+      <line x1="14" y1="12.5" x2="18" y2="12.5" stroke="currentColor" strokeWidth="1" opacity="0.15" />
+      <line x1="14" y1="19.5" x2="18" y2="19.5" stroke="currentColor" strokeWidth="1" opacity="0.15" />
+      <line x1="12" y1="24" x2="20" y2="24" stroke="currentColor" strokeWidth="1" opacity="0.2" />
       {/* Nodes at intersections */}
-      <circle cx="16" cy="11" r="1.5" fill="white" opacity="0.8" />
+      <circle cx="16" cy="10.5" r="1.5" fill="#a78bfa" />
       <circle cx="16" cy="16" r="2" fill="#5eead4" />
-      <circle cx="16" cy="21" r="1.5" fill="white" opacity="0.8" />
+      <circle cx="16" cy="21.5" r="1.5" fill="#a78bfa" />
       <defs>
-        <linearGradient id="logo-grad" x1="0" y1="0" x2="32" y2="32">
-          <stop offset="0%" stopColor="#7c3aed" />
-          <stop offset="100%" stopColor="#a78bfa" />
+        <linearGradient id="strand-left" x1="10" y1="4" x2="22" y2="28">
+          <stop offset="0%" stopColor="#a78bfa" />
+          <stop offset="100%" stopColor="#7c3aed" />
         </linearGradient>
       </defs>
     </svg>
@@ -326,7 +325,7 @@ export default function Home() {
               <Github className="w-3.5 h-3.5" />
               <span className="hidden sm:inline">GitHub</span>
             </a>
-            <a href="#start" className="text-[13px] px-4 py-1.5 rounded-lg bg-[var(--accent)] text-black font-semibold hover:brightness-110 transition-all">
+            <a href="#start" className="hidden sm:inline-flex text-[13px] px-4 py-1.5 rounded-lg bg-[var(--accent)] text-black font-semibold hover:brightness-110 transition-all">
               Get Started
             </a>
           </div>
@@ -339,9 +338,9 @@ export default function Home() {
       <section className="pt-[120px] sm:pt-[140px] pb-8 sm:pb-12 px-5 sm:px-8">
         <div className="max-w-[1000px] mx-auto">
           <motion.div className="max-w-[700px]" initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[var(--teal-dim)] text-[var(--teal)] text-[13px] mono mb-3">
-              <Sparkles className="w-3 h-3" />
-              Optimized for <span className="text-[var(--claude)]">CLAUDE.md</span> · Free &amp; Open Source
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[var(--teal-dim)] text-[var(--teal)] text-[12px] sm:text-[13px] mono mb-3 whitespace-nowrap">
+              <Sparkles className="w-3 h-3 shrink-0" />
+              <span>Optimized for <span className="text-[var(--claude)]">CLAUDE.md</span> · Free &amp; Open Source</span>
             </div>
 
             <h1 className="display text-[36px] sm:text-[56px] lg:text-[72px] leading-[1.05] tracking-tight mb-5">

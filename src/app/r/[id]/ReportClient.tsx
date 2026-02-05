@@ -32,20 +32,20 @@ import { useState } from "react";
 function Logo({ size = 24 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 32 32" fill="none">
-      <rect width="32" height="32" rx="8" fill="url(#lg)" />
-      <path d="M10 6 C10 10, 22 12, 22 16 C22 20, 10 22, 10 26" stroke="white" strokeWidth="1.5" strokeLinecap="round" fill="none" opacity="0.9" />
-      <path d="M22 6 C22 10, 10 12, 10 16 C10 20, 22 22, 22 26" stroke="#5eead4" strokeWidth="1.5" strokeLinecap="round" fill="none" opacity="0.9" />
-      <line x1="12" y1="9" x2="20" y2="9" stroke="rgba(255,255,255,0.25)" strokeWidth="1" />
-      <line x1="14" y1="13" x2="18" y2="13" stroke="rgba(255,255,255,0.25)" strokeWidth="1" />
-      <line x1="14" y1="19" x2="18" y2="19" stroke="rgba(255,255,255,0.25)" strokeWidth="1" />
-      <line x1="12" y1="23" x2="20" y2="23" stroke="rgba(255,255,255,0.25)" strokeWidth="1" />
-      <circle cx="16" cy="11" r="1.5" fill="white" opacity="0.8" />
+      {/* DNA double helix — no background rect */}
+      <path d="M10 4 C10 9, 22 11, 22 16 C22 21, 10 23, 10 28" stroke="url(#lg)" strokeWidth="2" strokeLinecap="round" fill="none" />
+      <path d="M22 4 C22 9, 10 11, 10 16 C10 21, 22 23, 22 28" stroke="#5eead4" strokeWidth="2" strokeLinecap="round" fill="none" />
+      <line x1="12" y1="8" x2="20" y2="8" stroke="currentColor" strokeWidth="1" opacity="0.2" />
+      <line x1="14" y1="12.5" x2="18" y2="12.5" stroke="currentColor" strokeWidth="1" opacity="0.15" />
+      <line x1="14" y1="19.5" x2="18" y2="19.5" stroke="currentColor" strokeWidth="1" opacity="0.15" />
+      <line x1="12" y1="24" x2="20" y2="24" stroke="currentColor" strokeWidth="1" opacity="0.2" />
+      <circle cx="16" cy="10.5" r="1.5" fill="#a78bfa" />
       <circle cx="16" cy="16" r="2" fill="#5eead4" />
-      <circle cx="16" cy="21" r="1.5" fill="white" opacity="0.8" />
+      <circle cx="16" cy="21.5" r="1.5" fill="#a78bfa" />
       <defs>
-        <linearGradient id="lg" x1="0" y1="0" x2="32" y2="32">
-          <stop offset="0%" stopColor="#7c3aed" />
-          <stop offset="100%" stopColor="#a78bfa" />
+        <linearGradient id="lg" x1="10" y1="4" x2="22" y2="28">
+          <stop offset="0%" stopColor="#a78bfa" />
+          <stop offset="100%" stopColor="#7c3aed" />
         </linearGradient>
       </defs>
     </svg>
