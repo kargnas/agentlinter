@@ -147,11 +147,13 @@ export const securityRules: Rule[] = [
             });
           }
 
-          // Check for phone number patterns
+          // Check for phone number patterns (skip JSON keys, negative IDs, and pure numeric IDs)
           const phoneMatch = line.match(
             /(?:\+\d{1,3}[-.\s]?)?\(?\d{3}\)?[-.\s]?\d{3,4}[-.\s]?\d{4}/
           );
-          if (phoneMatch) {
+          const isJsonKey = file.name.endsWith(".json") && /^\s*"[-\d]+"/.test(line);
+          const isNegativeId = /^[\s"]*-\d+/.test(line.trim());
+          if (phoneMatch && !isJsonKey && !isNegativeId) {
             diagnostics.push({
               severity: "warning",
               category: "security",
