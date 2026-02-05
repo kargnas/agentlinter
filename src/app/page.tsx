@@ -343,7 +343,7 @@ export default function Home() {
       <section className="pt-[120px] sm:pt-[140px] pb-8 sm:pb-12 px-5 sm:px-8">
         <div className="max-w-[1000px] mx-auto">
           <motion.div className="max-w-[700px]" initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[var(--teal-dim)] text-[var(--teal)] text-[13px] mono mb-5">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[var(--teal-dim)] text-[var(--teal)] text-[13px] mono mb-3">
               <Sparkles className="w-3 h-3" />
               Optimized for <span className="text-[var(--claude)]">CLAUDE.md</span> · Free &amp; Open Source
             </div>
@@ -372,7 +372,7 @@ export default function Home() {
               </a>
             </div>
 
-            <p className="text-[13px] text-[var(--text-dim)] mono">
+            <p className="text-[13px] text-[var(--text-dim)] mono mb-12 sm:mb-16">
               Free &amp; open source · No config needed · Runs in seconds
             </p>
           </motion.div>
