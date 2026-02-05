@@ -33,6 +33,7 @@ export function lint(workspacePath: string, files: FileInfo[]): LintResult {
     "completeness",
     "security",
     "consistency",
+    "memory",
   ];
 
   const categoryScores: CategoryScore[] = categories.map((cat) => {
@@ -73,7 +74,7 @@ function computeCategoryScore(
   // Start at 100, deduct for issues
   let score = 100;
 
-  const errors = diagnostics.filter((d) => d.severity === "critical");
+  const errors = diagnostics.filter((d) => d.severity === "error");
   const warnings = diagnostics.filter((d) => d.severity === "warning");
   const infos = diagnostics.filter((d) => d.severity === "info");
 
@@ -137,6 +138,15 @@ function computeBonus(category: Category, files: FileInfo[]): number {
         (f) => f.name === f.name.toUpperCase().replace(/\.MD$/, ".md")
       );
       if (allUpper && rootMd.length > 1) bonus += 5;
+      break;
+
+    case "memory":
+      // Bonus for having memory-related files
+      if (files.some((f) => f.name === "MEMORY.md")) bonus += 5;
+      if (files.some((f) => f.name === "HEARTBEAT.md")) bonus += 3;
+      if (files.some((f) => f.name.includes("progress"))) bonus += 3;
+      // Bonus for memory directory
+      if (files.some((f) => f.name.includes("memory/"))) bonus += 5;
       break;
   }
 

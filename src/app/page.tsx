@@ -132,7 +132,8 @@ function AnimatedTerminal() {
     { text: "  ├─ Clarity       ███████░░░  70", type: "detail" },
     { text: "  ├─ Completeness  ██████░░░░  60", type: "detail" },
     { text: "  ├─ Security      █████████░  90", type: "detail" },
-    { text: "  └─ Consistency   ██████░░░░  60", type: "detail" },
+    { text: "  ├─ Consistency   ██████░░░░  60", type: "detail" },
+    { text: "  └─ Memory        ████████░░  80", type: "detail" },
     { text: "", type: "blank" },
     { text: "  2 critical(s) · 3 warning(s)", type: "warning" },
     { text: "", type: "blank" },
@@ -197,6 +198,7 @@ function ScoreCardPreview() {
     { label: "Completeness", score: 85, color: "#818cf8" },
     { label: "Security", score: 95, color: "#34d399" },
     { label: "Consistency", score: 75, color: "#fbbf24" },
+    { label: "Memory", score: 88, color: "#f472b6" },
   ];
 
   return (
@@ -350,7 +352,7 @@ export default function Home() {
             </h1>
 
             <p className="text-[16px] sm:text-[18px] text-[var(--text-secondary)] leading-[1.7] mb-8 max-w-[540px]">
-              Built on Anthropic&apos;s <span className="mono text-[var(--claude)] font-medium">CLAUDE.md</span> best practices. Lint your agent&apos;s clarity, structure, security, and consistency in one command.
+              Built on Anthropic&apos;s <span className="mono text-[var(--claude)] font-medium">CLAUDE.md</span> best practices. Lint your agent&apos;s clarity, structure, security, memory, and consistency in one command.
               Catch leaked secrets, vague instructions, and broken references before they cost you.
             </p>
 
@@ -553,7 +555,7 @@ export default function Home() {
           <FadeIn>
             <p className="text-[14px] mono text-[var(--accent)] mb-4 tracking-wider uppercase">Scoring Engine</p>
             <h2 className="display text-[32px] sm:text-[48px] lg:text-[56px] leading-[1.1] tracking-tight mb-5">
-              Five dimensions. <span className="text-[var(--accent)]">Real rules.</span>
+              Six dimensions. <span className="text-[var(--accent)]">Real rules.</span>
             </h2>
             <p className="text-[15px] text-[var(--text-secondary)] leading-[1.7] mb-12 max-w-[560px]">
               Not a vibe check. Every score is backed by specific, documented rules
@@ -566,7 +568,7 @@ export default function Home() {
             {[
               {
                 title: "Structure",
-                weight: "20%",
+                weight: "15%",
                 icon: Layers,
                 rules: ["File organization & naming conventions", "Section separation & hierarchy", "Required files present (CLAUDE.md, etc.)", "Consistent frontmatter format"],
                 example: '🔴 CRITICAL  Missing TOOLS.md — referenced in CLAUDE.md:12',
@@ -580,9 +582,9 @@ export default function Home() {
               },
               {
                 title: "Completeness",
-                weight: "20%",
+                weight: "15%",
                 icon: FileText,
-                rules: ["Identity / persona defined", "Tool documentation present", "Boundaries & constraints set", "Memory & handoff strategy"],
+                rules: ["Identity / persona defined", "Tool documentation present", "Boundaries & constraints set", "Error handling & workflows"],
                 example: '⚠️ WARN No error recovery workflow — add escalation path',
               },
               {
@@ -594,17 +596,17 @@ export default function Home() {
               },
               {
                 title: "Consistency",
-                weight: "15%",
+                weight: "10%",
                 icon: GitBranch,
                 rules: ["Cross-file reference integrity", "Persona alignment (SOUL ↔ CLAUDE)", "Permission conflict detection", "Language mixing patterns (ko/en)"],
                 example: '🔴 CRITICAL  SOUL.md persona ≠ CLAUDE.md persona — reconcile',
               },
               {
-                title: "Custom Rules",
-                weight: "∞",
-                icon: Lock,
-                rules: ["Team conventions via .agentlinterrc", "Enforce naming, structure, tone", "CI/CD integration ready", "Shared across your organization"],
-                example: '.agentlinterrc: { "require": ["SECURITY.md"] }',
+                title: "Memory",
+                weight: "15%",
+                icon: RefreshCw,
+                rules: ["Session handoff protocol", "File-based persistence (daily notes, logs)", "Task state tracking (progress files)", "Learning loop & knowledge distillation"],
+                example: '⚠️ WARN No handoff protocol — agent loses context between sessions',
               },
             ].map((dim, i) => (
               <FadeIn key={dim.title} delay={0.05 * i}>
@@ -672,7 +674,7 @@ export default function Home() {
               </div>
 
               {[
-                { feature: "Scoring", official: "Basic via /init", ours: "5-category (0-100) per file", os: "partial", us: "full" },
+                { feature: "Scoring", official: "Basic via /init", ours: "6-category (0-100) per file", os: "partial", us: "full" },
                 { feature: "Scope", official: "Single CLAUDE.md", ours: "Full workspace (all files)", os: "partial", us: "full" },
                 { feature: "Cross-file checks", official: "✕", ours: "Contradiction detection", os: "none", us: "full" },
                 { feature: "Secret scanning", official: "✕", ours: "Keys, tokens, passwords", os: "none", us: "full" },

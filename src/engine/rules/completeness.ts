@@ -108,42 +108,6 @@ export const completenessRules: Rule[] = [
   },
 
   {
-    id: "completeness/has-memory-strategy",
-    category: "completeness",
-    severity: "info",
-    description: "Agent should have a memory or session continuity strategy",
-    check(files) {
-      const allContent = files.map((f) => f.content).join("\n");
-      const hasMemory =
-        /memory|continuity|handoff|persist|session|remember|context.*window|state.*management/i.test(
-          allContent
-        );
-
-      const hasMemoryFile = files.some(
-        (f) =>
-          f.name === "MEMORY.md" ||
-          f.name === "HEARTBEAT.md" ||
-          f.name.includes("progress")
-      );
-
-      if (!hasMemory && !hasMemoryFile) {
-        return [
-          {
-            severity: "info",
-            category: "completeness",
-            rule: this.id,
-            file: "(workspace)",
-            message:
-              "No memory/continuity strategy found. Without this, the agent loses context between sessions.",
-            fix: "Add a memory strategy: file-based notes, session handoff protocol, or MEMORY.md for long-term storage.",
-          },
-        ];
-      }
-      return [];
-    },
-  },
-
-  {
     id: "completeness/has-user-context",
     category: "completeness",
     severity: "info",

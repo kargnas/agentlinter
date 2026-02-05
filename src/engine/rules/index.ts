@@ -6,6 +6,7 @@ import { clarityRules } from "./clarity";
 import { completenessRules } from "./completeness";
 import { securityRules } from "./security";
 import { consistencyRules } from "./consistency";
+import { memoryRules } from "./memory";
 
 export const allRules: Rule[] = [
   ...structureRules,
@@ -13,6 +14,7 @@ export const allRules: Rule[] = [
   ...completenessRules,
   ...securityRules,
   ...consistencyRules,
+  ...memoryRules,
 ];
 
 export {
@@ -21,4 +23,5 @@ export {
   completenessRules,
   securityRules,
   consistencyRules,
+  memoryRules,
 };
