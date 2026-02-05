@@ -328,7 +328,7 @@ export default function Home() {
             <h1 className="display text-[40px] sm:text-[56px] lg:text-[72px] leading-[1.05] tracking-tight mb-7">
               How sharp is
               <br />
-              <span className="text-[var(--accent)] glow-text italic">your agent?</span>
+              <span className="text-[var(--accent)] glow-text">your agent?</span>
             </h1>
 
             <p className="text-[16px] sm:text-[18px] text-[var(--text-secondary)] leading-[1.7] mb-10 max-w-[520px]">
@@ -623,7 +623,7 @@ export default function Home() {
             <h2 className="display text-[28px] sm:text-[40px] lg:text-[48px] leading-[1.1] tracking-tight mb-4 max-w-[700px]">
               Anthropic built the foundation.
               <br />
-              <span className="text-[var(--accent)] italic">We built the linter.</span>
+              <span className="text-[var(--accent)]">We built the linter.</span>
             </h2>
             <p className="text-[15px] text-[var(--text-secondary)] leading-[1.7] mb-14 max-w-[600px]">
               Anthropic&apos;s Claude Code provides{" "}
@@ -820,7 +820,7 @@ export default function Home() {
             <h2 className="display text-[32px] sm:text-[48px] lg:text-[56px] leading-[1.1] tracking-tight mb-6">
               One command.
               <br />
-              <span className="text-[var(--accent)] italic glow-text">Try it now.</span>
+              <span className="text-[var(--accent)] glow-text">Try it now.</span>
             </h2>
             <p className="text-[15px] text-[var(--text-secondary)] leading-[1.7] mb-10 max-w-[440px] mx-auto">
               Run it in your agent workspace. Get your score in seconds.
