@@ -34,6 +34,8 @@ export function lint(workspacePath: string, files: FileInfo[]): LintResult {
     "security",
     "consistency",
     "memory",
+    "runtime",
+    "skillSafety",
   ];
 
   const categoryScores: CategoryScore[] = categories.map((cat) => {
@@ -147,6 +149,22 @@ function computeBonus(category: Category, files: FileInfo[]): number {
       if (files.some((f) => f.name.includes("progress"))) bonus += 3;
       // Bonus for memory directory
       if (files.some((f) => f.name.includes("memory/"))) bonus += 5;
+      break;
+
+    case "runtime":
+      // Bonus for having a runtime config
+      if (files.some((f) => f.name === "clawdbot.json" || f.name === "openclaw.json")) bonus += 5;
+      break;
+
+    case "skillSafety":
+      // Bonus for having skills with proper metadata
+      const skillFiles = files.filter((f) => f.name.includes("skills/") && f.name.endsWith("SKILL.md"));
+      if (skillFiles.length > 0) {
+        const withFrontmatter = skillFiles.filter((f) => f.content.startsWith("---"));
+        if (withFrontmatter.length === skillFiles.length) bonus += 5;
+      }
+      // If no skills present, give full marks (nothing to check)
+      if (skillFiles.length === 0) bonus += 10;
       break;
   }
 

@@ -30,7 +30,7 @@ export function formatTerminal(result: LintResult): string {
   // Category scores
   for (const cat of result.categories) {
     const bar = makeBar(cat.score);
-    const label = CATEGORY_LABELS[cat.category].padEnd(14);
+    const label = CATEGORY_LABELS[cat.category].padEnd(16);
     lines.push(`  ${label} ${bar} ${cat.score}`);
   }
   lines.push("");

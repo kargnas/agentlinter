@@ -167,13 +167,15 @@ function AnimatedTerminal() {
     { text: "📁 Scanning workspace: .claude/ + root", type: "info" },
     { text: "   Found 5 files: CLAUDE.md, SOUL.md, USER.md, TOOLS.md, SECURITY.md", type: "info" },
     { text: "", type: "blank" },
-    { text: "  Workspace Score ........ 72/100  (B)", type: "score" },
+    { text: "  Workspace Score ........ 76/100  (B+)", type: "score" },
     { text: "  ├─ Structure     ████████░░  80", type: "detail" },
     { text: "  ├─ Clarity       ███████░░░  70", type: "detail" },
     { text: "  ├─ Completeness  ██████░░░░  60", type: "detail" },
     { text: "  ├─ Security      █████████░  90", type: "detail" },
     { text: "  ├─ Consistency   ██████░░░░  60", type: "detail" },
-    { text: "  └─ Memory        ████████░░  80", type: "detail" },
+    { text: "  ├─ Memory        ████████░░  80", type: "detail" },
+    { text: "  ├─ Runtime Cfg   █████████░  88", type: "detail" },
+    { text: "  └─ Skill Safety  █████████░  92", type: "detail" },
     { text: "", type: "blank" },
     { text: "  2 critical(s) · 3 warning(s)", type: "warning" },
     { text: "", type: "blank" },
@@ -239,6 +241,8 @@ function ScoreCardPreview() {
     { label: "Security", score: 95, color: "#34d399" },
     { label: "Consistency", score: 75, color: "#fbbf24" },
     { label: "Memory", score: 88, color: "#f472b6" },
+    { label: "Runtime Cfg", score: 92, color: "#38bdf8" },
+    { label: "Skill Safety", score: 98, color: "#4ade80" },
   ];
 
   return (
@@ -597,7 +601,7 @@ export default function Home() {
           <FadeIn>
             <p className="text-[14px] mono text-[var(--accent)] mb-4 tracking-wider uppercase">Scoring Engine</p>
             <h2 className="display text-[32px] sm:text-[48px] lg:text-[56px] leading-[1.1] tracking-tight mb-5">
-              Six dimensions. <span className="text-[var(--accent)]">Real rules.</span>
+              Eight dimensions. <span className="text-[var(--accent)]">Real rules.</span>
             </h2>
             <p className="text-[15px] text-[var(--text-secondary)] leading-[1.7] mb-12 max-w-[560px]">
               Not a vibe check. Every score is backed by specific, documented rules
@@ -606,49 +610,63 @@ export default function Home() {
             </p>
           </FadeIn>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {[
               {
                 title: "Structure",
-                weight: "15%",
+                weight: "12%",
                 icon: Layers,
                 rules: ["File organization & naming conventions", "Section separation & hierarchy", "Required files present (CLAUDE.md, etc.)", "Consistent frontmatter format"],
                 example: '🔴 CRITICAL  Missing TOOLS.md — referenced in CLAUDE.md:12',
               },
               {
                 title: "Clarity",
-                weight: "25%",
+                weight: "20%",
                 icon: Eye,
                 rules: ["Naked conditionals without criteria", "Compound instructions (too many per line)", "Ambiguous pronouns & vague language", "Missing priority signals (P0/P1/P2)"],
                 example: '⚠️ WARN "be helpful" → specify: response length, tone, format',
               },
               {
                 title: "Completeness",
-                weight: "15%",
+                weight: "12%",
                 icon: FileText,
                 rules: ["Identity / persona defined", "Tool documentation present", "Boundaries & constraints set", "Error handling & workflows"],
                 example: '⚠️ WARN No error recovery workflow — add escalation path',
               },
               {
                 title: "Security",
-                weight: "20%",
+                weight: "15%",
                 icon: Shield,
                 rules: ["API key / token / password detection", "Injection defense instructions", "Permission boundaries defined", "Sensitive data handling rules"],
                 example: '🔴 CRITICAL  Secret: API key "sk-proj-..." in TOOLS.md:14',
               },
               {
                 title: "Consistency",
-                weight: "10%",
+                weight: "8%",
                 icon: GitBranch,
                 rules: ["Cross-file reference integrity", "Persona alignment (SOUL ↔ CLAUDE)", "Permission conflict detection", "Language mixing patterns (ko/en)"],
                 example: '🔴 CRITICAL  SOUL.md persona ≠ CLAUDE.md persona — reconcile',
               },
               {
                 title: "Memory",
-                weight: "15%",
+                weight: "10%",
                 icon: RefreshCw,
                 rules: ["Session handoff protocol", "File-based persistence (daily notes, logs)", "Task state tracking (progress files)", "Learning loop & knowledge distillation"],
                 example: '⚠️ WARN No handoff protocol — agent loses context between sessions',
+              },
+              {
+                title: "Runtime Config",
+                weight: "13%",
+                icon: Terminal,
+                rules: ["Gateway bind (loopback only)", "Auth mode enabled (token/password)", "Token strength (32+ chars)", "DM/group policy restrictions", "Plaintext secrets in config"],
+                example: '🔴 CRITICAL  Gateway bind "0.0.0.0" — exposes agent to network',
+              },
+              {
+                title: "Skill Safety",
+                weight: "10%",
+                icon: Search,
+                rules: ["Dangerous shell commands (rm -rf, curl|bash)", "Sensitive path access (~/.ssh, ~/.env)", "Data exfiltration patterns", "Prompt injection vectors in skills", "Excessive permission requests"],
+                example: '🔴 CRITICAL  Skill contains: curl ... | bash',
               },
             ].map((dim, i) => (
               <FadeIn key={dim.title} delay={0.05 * i}>
