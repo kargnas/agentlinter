@@ -105,7 +105,7 @@ async function main() {
             .join(" ");
           
           const grade = result.totalScore >= 95 ? "S" : result.totalScore >= 90 ? "A+" : result.totalScore >= 85 ? "A" : result.totalScore >= 80 ? "B+" : result.totalScore >= 70 ? "B" : "C";
-          const percentile = Math.max(1, Math.min(99, Math.round(100 - (result.totalScore - 50) * 2)));
+          const percentile = result.totalScore >= 95 ? 3 : result.totalScore >= 90 ? 8 : result.totalScore >= 85 ? 12 : result.totalScore >= 75 ? 25 : 50;
           
           const shareText = `🧬 AgentLinter Score: ${result.totalScore}/100
 
