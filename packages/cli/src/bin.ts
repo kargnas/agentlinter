@@ -111,8 +111,6 @@ async function main() {
 
 ⭐ ${grade} tier · Top ${percentile}%
 
-${allCats}
-
 Is YOUR AI agent sharp & secure?
 Free lint in one command:
 

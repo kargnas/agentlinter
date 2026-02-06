@@ -470,8 +470,6 @@ export default function ReportPage({ data }: { data: ReportData }) {
 
 ⭐ ${tier.grade} tier · Top ${percentile}%
 
-${allCategories}
-
 Is YOUR AI agent sharp & secure?
 Free lint in one command:
 
