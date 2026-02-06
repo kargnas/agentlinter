@@ -382,12 +382,13 @@ Score changes are posted as PR comments automatically.
 
 ## Privacy
 
-**100% local execution.** Your files never leave your machine. No cloud, no API calls, no telemetry by default.
+**Local-first by design.** All scanning and scoring runs 100% on your machine. Your file contents never leave.
 
-- All scanning happens locally
-- Reports are generated client-side
+- All scanning happens locally — file contents never uploaded
+- **Report sharing is optional** — only scores + diagnostics are uploaded (not your files)
+- Use `--local` flag to skip sharing entirely
 - Secrets are auto-masked in reports
-- Opt-out telemetry with `--no-telemetry`
+- No telemetry by default
 
 ---
 

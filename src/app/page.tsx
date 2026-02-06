@@ -999,9 +999,9 @@ export default function Home() {
               <span className="text-[var(--teal)]">your machine.</span>
             </h2>
             <p className="text-[15px] text-[var(--text-secondary)] leading-[1.7] mb-12 max-w-[560px]">
-              AgentLinter runs 100% locally. No cloud. No API calls. No telemetry by default.
-              Your agent configs — which may contain sensitive instructions, personal context,
-              and security rules — stay exactly where they are.
+              All scanning and scoring runs 100% locally. Your file contents never leave your machine.
+              Report sharing is optional — when enabled, only scores and diagnostic messages are uploaded (not your actual files).
+              Use <code className="text-[var(--teal)] bg-[var(--teal)]/10 px-1.5 py-0.5 rounded text-[13px]">--local</code> to skip sharing entirely.
             </p>
           </FadeIn>
 
@@ -1009,9 +1009,9 @@ export default function Home() {
             {[
               {
                 icon: Lock,
-                title: "100% Local Execution",
-                desc: "The entire scan runs on your machine. No files, no content, no metadata is sent anywhere. It's a local Node.js process — inspect the source yourself.",
-                badge: "Zero network calls",
+                title: "Local-First Execution",
+                desc: "All scanning runs on your machine. File contents never leave. Report sharing (scores + diagnostics only) is optional — use --local to disable entirely.",
+                badge: "Files stay local",
               },
               {
                 icon: Shield,
