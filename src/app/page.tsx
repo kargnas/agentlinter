@@ -32,7 +32,44 @@ import {
   Eye,
   Layers,
   GitBranch,
+  Star,
 } from "lucide-react";
+
+/* ════════════════════════════════════════
+   GitHub Stars Hook
+   ════════════════════════════════════════ */
+function useGitHubStars(repo: string) {
+  const [stars, setStars] = useState<number | null>(null);
+
+  useEffect(() => {
+    fetch(`https://api.github.com/repos/${repo}`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.stargazers_count !== undefined) {
+          setStars(data.stargazers_count);
+        }
+      })
+      .catch(() => {});
+  }, [repo]);
+
+  return stars;
+}
+
+/* ════════════════════════════════════════
+   GitHub Stars Badge
+   ════════════════════════════════════════ */
+function GitHubStarsBadge({ stars, className = "" }: { stars: number | null; className?: string }) {
+  if (stars === null) return null;
+  
+  const formatted = stars >= 1000 ? `${(stars / 1000).toFixed(1)}k` : stars.toString();
+  
+  return (
+    <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded-md bg-[var(--amber)]/10 text-[var(--amber)] text-[11px] mono ${className}`}>
+      <Star className="w-3 h-3 fill-current" />
+      {formatted}
+    </span>
+  );
+}
 
 /* ════════════════════════════════════════
    Logo
@@ -351,6 +388,8 @@ function FadeIn({ children, className = "", delay = 0 }: { children: React.React
    MAIN PAGE
    ════════════════════════════════════════════════════════════════ */
 export default function Home() {
+  const stars = useGitHubStars("seojoonkim/agentlinter");
+  
   return (
     <div className="min-h-screen noise">
       {/* ── Nav ── */}
@@ -373,6 +412,7 @@ export default function Home() {
             <a href="https://github.com/seojoonkim/agentlinter" target="_blank" className="text-[13px] text-[var(--text-secondary)] hover:text-white transition-colors flex items-center gap-1.5">
               <Github className="w-3.5 h-3.5" />
               <span className="hidden sm:inline">GitHub</span>
+              <GitHubStarsBadge stars={stars} />
             </a>
             <a href="#start" className="hidden sm:inline-flex text-[13px] px-4 py-1.5 rounded-lg bg-[var(--accent)] text-black font-semibold hover:brightness-110 transition-all">
               Get Started
@@ -413,6 +453,7 @@ export default function Home() {
                 className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl border border-[var(--border)] text-[var(--text-secondary)] text-[14px] hover:text-white hover:border-[var(--border-hover)] transition-all w-full sm:w-auto">
                 <Github className="w-4 h-4" />
                 View Source
+                <GitHubStarsBadge stars={stars} />
               </a>
             </div>
 
