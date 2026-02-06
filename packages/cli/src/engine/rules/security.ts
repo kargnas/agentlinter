@@ -148,13 +148,13 @@ export const securityRules: Rule[] = [
             });
           }
 
-          // Check for phone number patterns (skip JSON keys, negative IDs, and pure numeric IDs)
+          // Check for phone number patterns (skip JSON files entirely - they contain IDs, not phone numbers)
           const phoneMatch = line.match(
             /(?:\+\d{1,3}[-.\s]?)?\(?\d{3}\)?[-.\s]?\d{3,4}[-.\s]?\d{4}/
           );
-          const isJsonKey = file.name.endsWith(".json") && /^\s*"[-\d]+"/.test(line);
+          const isJsonFile = file.name.endsWith(".json");
           const isNegativeId = /^[\s"]*-\d+/.test(line.trim());
-          if (phoneMatch && !isJsonKey && !isNegativeId) {
+          if (phoneMatch && !isJsonFile && !isNegativeId) {
             diagnostics.push({
               severity: "warning",
               category: "security",
