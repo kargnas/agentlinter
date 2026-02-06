@@ -211,7 +211,7 @@ const CATEGORY_META: Record<string, {
     ],
   },
   Consistency: {
-    weight: 15,
+    weight: 8,
     description: "Whether your files agree with each other — no conflicting permissions, matching tone, consistent naming, valid cross-references, and aligned timezones.",
     whyItMatters: "When SOUL.md says \"be casual\" but SECURITY.md uses formal legal language, the agent gets confused about its voice. When one file says \"auto-send emails\" and another says \"never send without approval,\" the agent picks randomly. Consistency ensures your agent speaks with one voice and follows one set of rules.",
     rules: [
@@ -226,6 +226,41 @@ const CATEGORY_META: Record<string, {
       { id: "consistency/timezone-locale-drift", severity: "warning", description: "Consistent timezone references across files" },
       { id: "consistency/priority-conflict", severity: "warning", description: "Same topic doesn't have conflicting priorities" },
       { id: "consistency/outdated-cross-references", severity: "critical", description: "Section references point to existing sections" },
+    ],
+  },
+  Memory: {
+    weight: 10,
+    description: "How well your agent persists knowledge across sessions — memory strategy, session handoff, file-based notes, context window awareness, and task tracking.",
+    whyItMatters: "Agents without memory are goldfish — they wake up confused, repeat questions, and forget what they learned yesterday. A well-designed memory system lets your agent build knowledge over time, resume interrupted work, and maintain long-term context.",
+    rules: [
+      { id: "memory/has-memory-strategy", severity: "warning", description: "Memory strategy defined (file-based, database, etc.)" },
+      { id: "memory/has-session-handoff", severity: "warning", description: "Session startup protocol (what to read, how to restore context)" },
+      { id: "memory/has-file-based-memory", severity: "info", description: "File-based memory system (logs, notes)" },
+      { id: "memory/has-context-window-awareness", severity: "info", description: "Guidance for long conversations and context overflow" },
+      { id: "memory/has-task-tracking", severity: "info", description: "Task/state tracking for resuming work" },
+    ],
+  },
+  "Runtime Config": {
+    weight: 13,
+    description: "Runtime configuration quality — JSON structure, environment variables, API timeouts, tool permissions, and model settings.",
+    whyItMatters: "Runtime config controls how your agent actually runs — API keys, timeouts, tool permissions, model selection. A misconfigured runtime can leak secrets, hit rate limits, or grant excessive permissions.",
+    rules: [
+      { id: "runtime/has-config", severity: "info", description: "Runtime config file exists (clawdbot.json, openclaw.json)" },
+      { id: "runtime/valid-json", severity: "critical", description: "Config is valid JSON" },
+      { id: "runtime/has-env-vars", severity: "info", description: "Uses environment variables for secrets" },
+      { id: "runtime/has-timeout-settings", severity: "info", description: "API timeout settings configured" },
+    ],
+  },
+  "Skill Safety": {
+    weight: 10,
+    description: "Safety and quality of custom skills — documentation, environment checks, error handling, security docs, and safe defaults.",
+    whyItMatters: "Custom skills extend your agent's capabilities but introduce risk. A skill without security docs is a footgun. Skills need clear documentation, environment validation, and safe defaults to prevent misuse.",
+    rules: [
+      { id: "skillSafety/has-skill-md", severity: "warning", description: "Skills have SKILL.md documentation" },
+      { id: "skillSafety/has-frontmatter", severity: "info", description: "SKILL.md has frontmatter metadata" },
+      { id: "skillSafety/has-environment-check", severity: "warning", description: "Skills validate required environment variables" },
+      { id: "skillSafety/has-security-docs", severity: "warning", description: "Skills document security implications" },
+      { id: "skillSafety/has-error-handling", severity: "info", description: "Skills handle errors gracefully" },
     ],
   },
 };
