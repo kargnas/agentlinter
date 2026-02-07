@@ -54,20 +54,19 @@ function Logo({ size = 24 }: { size?: number }) {
 }
 
 /* ─── Tier ─── */
+// 50점 미만 F, B+ 이하 촘촘하게
 function getTier(score: number) {
   if (score >= 98) return { grade: "S", color: "#c084fc", bg: "#c084fc18", label: "Exceptional", emoji: "🏆" };
   if (score >= 96) return { grade: "A+", color: "#a78bfa", bg: "#a78bfa18", label: "Outstanding", emoji: "⭐" };
   if (score >= 93) return { grade: "A", color: "#818cf8", bg: "#818cf818", label: "Excellent", emoji: "🎯" };
   if (score >= 90) return { grade: "A-", color: "#60a5fa", bg: "#60a5fa18", label: "Great", emoji: "✨" };
-  if (score >= 86) return { grade: "B+", color: "#34d399", bg: "#34d39918", label: "Good", emoji: "👍" };
+  if (score >= 85) return { grade: "B+", color: "#34d399", bg: "#34d39918", label: "Good", emoji: "👍" };
   if (score >= 80) return { grade: "B", color: "#4ade80", bg: "#4ade8018", label: "Decent", emoji: "👌" };
-  if (score >= 73) return { grade: "B-", color: "#a3e635", bg: "#a3e63518", label: "Fair", emoji: "📝" };
-  if (score >= 65) return { grade: "C+", color: "#fbbf24", bg: "#fbbf2418", label: "Needs Work", emoji: "🔧" };
-  if (score >= 58) return { grade: "C", color: "#f59e0b", bg: "#f59e0b18", label: "Below Average", emoji: "⚠️" };
-  if (score >= 50) return { grade: "C-", color: "#fb923c", bg: "#fb923c18", label: "Poor", emoji: "📉" };
-  if (score >= 43) return { grade: "D+", color: "#f87171", bg: "#f8717118", label: "Weak", emoji: "🔻" };
-  if (score >= 35) return { grade: "D", color: "#ef4444", bg: "#ef444418", label: "Very Weak", emoji: "🚨" };
-  if (score >= 25) return { grade: "D-", color: "#dc2626", bg: "#dc262618", label: "Critical", emoji: "💔" };
+  if (score >= 75) return { grade: "B-", color: "#a3e635", bg: "#a3e63518", label: "Fair", emoji: "📝" };
+  if (score >= 68) return { grade: "C+", color: "#fbbf24", bg: "#fbbf2418", label: "Needs Work", emoji: "🔧" };
+  if (score >= 60) return { grade: "C", color: "#f59e0b", bg: "#f59e0b18", label: "Below Average", emoji: "📊" };
+  if (score >= 55) return { grade: "C-", color: "#fb923c", bg: "#fb923c18", label: "Poor", emoji: "⚠️" };
+  if (score >= 50) return { grade: "D", color: "#ef4444", bg: "#ef444418", label: "Weak", emoji: "🚨" };
   return { grade: "F", color: "#991b1b", bg: "#991b1b18", label: "Failing", emoji: "💀" };
 }
 
@@ -443,7 +442,7 @@ export default function ReportPage({ data }: { data: ReportData }) {
   const tier = getTier(data.totalScore);
   const [showAllFiles, setShowAllFiles] = useState(false);
 
-  const percentile = data.totalScore >= 95 ? 3 : data.totalScore >= 90 ? 8 : data.totalScore >= 85 ? 12 : data.totalScore >= 75 ? 25 : 50;
+  const percentile = data.totalScore >= 98 ? 1 : data.totalScore >= 96 ? 3 : data.totalScore >= 93 ? 5 : data.totalScore >= 90 ? 8 : data.totalScore >= 85 ? 12 : data.totalScore >= 80 ? 18 : data.totalScore >= 75 ? 25 : data.totalScore >= 68 ? 35 : 50;
 
   const errors = data.diagnostics.filter((d) => d.severity === "critical" || d.severity === "error");
   const warnings = data.diagnostics.filter((d) => d.severity === "warning");
@@ -583,22 +582,20 @@ https://agentlinter.com`;
                 <Target className="w-4 h-4 text-[var(--accent)]" />
                 <span className="text-[13px] font-medium text-[var(--text-primary)]">Grade Scale</span>
               </div>
-              <div className="grid grid-cols-7 sm:grid-cols-14 gap-1 text-center">
+              <div className="grid grid-cols-6 sm:grid-cols-12 gap-1 text-center">
                 {[
                   { grade: "S", min: "98+", color: "#c084fc" },
                   { grade: "A+", min: "96", color: "#a78bfa" },
                   { grade: "A", min: "93", color: "#818cf8" },
                   { grade: "A-", min: "90", color: "#60a5fa" },
-                  { grade: "B+", min: "86", color: "#34d399" },
+                  { grade: "B+", min: "85", color: "#34d399" },
                   { grade: "B", min: "80", color: "#4ade80" },
-                  { grade: "B-", min: "73", color: "#a3e635" },
-                  { grade: "C+", min: "65", color: "#fbbf24" },
-                  { grade: "C", min: "58", color: "#f59e0b" },
-                  { grade: "C-", min: "50", color: "#fb923c" },
-                  { grade: "D+", min: "43", color: "#f87171" },
-                  { grade: "D", min: "35", color: "#ef4444" },
-                  { grade: "D-", min: "25", color: "#dc2626" },
-                  { grade: "F", min: "<25", color: "#991b1b" },
+                  { grade: "B-", min: "75", color: "#a3e635" },
+                  { grade: "C+", min: "68", color: "#fbbf24" },
+                  { grade: "C", min: "60", color: "#f59e0b" },
+                  { grade: "C-", min: "55", color: "#fb923c" },
+                  { grade: "D", min: "50", color: "#ef4444" },
+                  { grade: "F", min: "<50", color: "#991b1b" },
                 ].map((g) => (
                   <div
                     key={g.grade}
@@ -685,6 +682,38 @@ https://agentlinter.com`;
             </a>
           </div>
         </motion.div>
+
+        {/* ═══════ Fix with AI Agent CTA ═══════ */}
+        {data.diagnostics.length > 0 && (
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.5 }}
+            className="rounded-xl border border-[var(--accent)]/30 bg-gradient-to-r from-[var(--accent)]/8 to-[var(--accent)]/3 p-4 sm:p-6"
+          >
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+              <div className="flex-1">
+                <h3 className="text-[15px] font-semibold text-white mb-1.5 flex items-center gap-2">
+                  <Sparkles className="w-4 h-4 text-[var(--accent)]" />
+                  Fix issues with your AI agent
+                </h3>
+                <p className="text-[13px] text-[var(--text-secondary)] leading-relaxed">
+                  Copy this report link and share it with Claude, ChatGPT, or your favorite AI assistant. Ask them to fix the flagged issues — they can read the diagnostics and apply fixes automatically.
+                </p>
+              </div>
+              <button
+                onClick={() => {
+                  navigator.clipboard.writeText(window.location.href);
+                  // Could add a toast here
+                }}
+                className="shrink-0 inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-[var(--accent)] hover:brightness-110 text-white text-[14px] font-medium transition-all hover:scale-[1.02] active:scale-[0.98]"
+              >
+                <Copy className="w-4 h-4" />
+                Copy Link
+              </button>
+            </div>
+          </motion.div>
+        )}
 
         {/* ═══════ Table of Contents ═══════ */}
         <div className="rounded-xl border border-[var(--border)] bg-[var(--bg-card)] p-4 sm:p-6">
