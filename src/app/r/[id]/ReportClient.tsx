@@ -61,11 +61,14 @@ function getTier(score: number) {
   if (score >= 90) return { grade: "A-", color: "#60a5fa", bg: "#60a5fa18", label: "Great", emoji: "✨" };
   if (score >= 86) return { grade: "B+", color: "#34d399", bg: "#34d39918", label: "Good", emoji: "👍" };
   if (score >= 80) return { grade: "B", color: "#4ade80", bg: "#4ade8018", label: "Decent", emoji: "👌" };
-  if (score >= 73) return { grade: "B-", color: "#fbbf24", bg: "#fbbf2418", label: "Fair", emoji: "📝" };
-  if (score >= 65) return { grade: "C+", color: "#fb923c", bg: "#fb923c18", label: "Needs Work", emoji: "🔧" };
-  if (score >= 55) return { grade: "C", color: "#f87171", bg: "#f8717118", label: "Poor", emoji: "⚠️" };
-  if (score >= 40) return { grade: "D", color: "#ef4444", bg: "#ef444418", label: "Weak", emoji: "🚨" };
-  return { grade: "F", color: "#dc2626", bg: "#dc262618", label: "Critical", emoji: "💀" };
+  if (score >= 73) return { grade: "B-", color: "#a3e635", bg: "#a3e63518", label: "Fair", emoji: "📝" };
+  if (score >= 65) return { grade: "C+", color: "#fbbf24", bg: "#fbbf2418", label: "Needs Work", emoji: "🔧" };
+  if (score >= 58) return { grade: "C", color: "#f59e0b", bg: "#f59e0b18", label: "Below Average", emoji: "⚠️" };
+  if (score >= 50) return { grade: "C-", color: "#fb923c", bg: "#fb923c18", label: "Poor", emoji: "📉" };
+  if (score >= 43) return { grade: "D+", color: "#f87171", bg: "#f8717118", label: "Weak", emoji: "🔻" };
+  if (score >= 35) return { grade: "D", color: "#ef4444", bg: "#ef444418", label: "Very Weak", emoji: "🚨" };
+  if (score >= 25) return { grade: "D-", color: "#dc2626", bg: "#dc262618", label: "Critical", emoji: "💔" };
+  return { grade: "F", color: "#991b1b", bg: "#991b1b18", label: "Failing", emoji: "💀" };
 }
 
 /* ─── Category Icon ─── */
