@@ -104,8 +104,8 @@ async function main() {
             .map(c => `${catLabels[c.category] || ""}${c.score}`)
             .join(" ");
           
-          const grade = result.totalScore >= 95 ? "S" : result.totalScore >= 90 ? "A+" : result.totalScore >= 85 ? "A" : result.totalScore >= 80 ? "B+" : result.totalScore >= 70 ? "B" : "C";
-          const percentile = result.totalScore >= 95 ? 3 : result.totalScore >= 90 ? 8 : result.totalScore >= 85 ? 12 : result.totalScore >= 75 ? 25 : 50;
+          const grade = result.totalScore >= 98 ? "S" : result.totalScore >= 96 ? "A+" : result.totalScore >= 93 ? "A" : result.totalScore >= 90 ? "A-" : result.totalScore >= 85 ? "B+" : result.totalScore >= 80 ? "B" : result.totalScore >= 75 ? "B-" : result.totalScore >= 68 ? "C+" : result.totalScore >= 60 ? "C" : result.totalScore >= 55 ? "C-" : result.totalScore >= 50 ? "D" : "F";
+          const percentile = result.totalScore >= 98 ? 1 : result.totalScore >= 96 ? 3 : result.totalScore >= 93 ? 5 : result.totalScore >= 90 ? 8 : result.totalScore >= 85 ? 12 : result.totalScore >= 80 ? 18 : result.totalScore >= 75 ? 25 : result.totalScore >= 68 ? 35 : 50;
           
           const shareText = `🧬 AgentLinter Score: ${result.totalScore}/100
 
@@ -145,20 +145,21 @@ function formatTerminalColored(result: LintResult): string {
   lines.push("");
 
   // Score
-  // Grade tiers (strict)
+  // Grade tiers (strict) - 50점 미만 F, B+ 이하 촘촘하게
   let scoreColor = c.red;
   let scoreEmoji = "💀";
   let grade = "F";
   if (result.totalScore >= 98) { scoreColor = c.magenta; scoreEmoji = "🏆"; grade = "S"; }
-  else if (result.totalScore >= 95) { scoreColor = c.magenta; scoreEmoji = "⭐"; grade = "A+"; }
-  else if (result.totalScore >= 90) { scoreColor = c.green; scoreEmoji = "🎯"; grade = "A"; }
-  else if (result.totalScore >= 85) { scoreColor = c.green; scoreEmoji = "✨"; grade = "A-"; }
-  else if (result.totalScore >= 80) { scoreColor = c.green; scoreEmoji = "👍"; grade = "B+"; }
-  else if (result.totalScore >= 75) { scoreColor = c.green; scoreEmoji = "👌"; grade = "B"; }
-  else if (result.totalScore >= 68) { scoreColor = c.yellow; scoreEmoji = "📝"; grade = "B-"; }
-  else if (result.totalScore >= 58) { scoreColor = c.yellow; scoreEmoji = "🔧"; grade = "C+"; }
-  else if (result.totalScore >= 45) { scoreColor = c.red; scoreEmoji = "⚠️"; grade = "C"; }
-  else if (result.totalScore >= 30) { scoreColor = c.red; scoreEmoji = "🚨"; grade = "D"; }
+  else if (result.totalScore >= 96) { scoreColor = c.magenta; scoreEmoji = "⭐"; grade = "A+"; }
+  else if (result.totalScore >= 93) { scoreColor = c.green; scoreEmoji = "🎯"; grade = "A"; }
+  else if (result.totalScore >= 90) { scoreColor = c.green; scoreEmoji = "✨"; grade = "A-"; }
+  else if (result.totalScore >= 85) { scoreColor = c.green; scoreEmoji = "👍"; grade = "B+"; }
+  else if (result.totalScore >= 80) { scoreColor = c.green; scoreEmoji = "👌"; grade = "B"; }
+  else if (result.totalScore >= 75) { scoreColor = c.yellow; scoreEmoji = "📝"; grade = "B-"; }
+  else if (result.totalScore >= 68) { scoreColor = c.yellow; scoreEmoji = "🔧"; grade = "C+"; }
+  else if (result.totalScore >= 60) { scoreColor = c.yellow; scoreEmoji = "📊"; grade = "C"; }
+  else if (result.totalScore >= 55) { scoreColor = c.red; scoreEmoji = "⚠️"; grade = "C-"; }
+  else if (result.totalScore >= 50) { scoreColor = c.red; scoreEmoji = "🚨"; grade = "D"; }
 
   lines.push(`${scoreEmoji} Overall Score: ${c.bold}${scoreColor}${result.totalScore}/100${c.reset} ${c.dim}(${grade})${c.reset}`);
   lines.push("");
@@ -172,18 +173,19 @@ function formatTerminalColored(result: LintResult): string {
     else if (cat.score >= 85) barColor = c.green;
     else if (cat.score >= 68) barColor = c.yellow;
 
-    // Grade per category
+    // Grade per category - 50점 미만 F, B+ 이하 촘촘하게
     let catGrade = "F";
     if (cat.score >= 98) catGrade = "S";
-    else if (cat.score >= 95) catGrade = "A+";
-    else if (cat.score >= 90) catGrade = "A";
-    else if (cat.score >= 85) catGrade = "A-";
-    else if (cat.score >= 80) catGrade = "B+";
-    else if (cat.score >= 75) catGrade = "B";
-    else if (cat.score >= 68) catGrade = "B-";
-    else if (cat.score >= 58) catGrade = "C+";
-    else if (cat.score >= 45) catGrade = "C";
-    else if (cat.score >= 30) catGrade = "D";
+    else if (cat.score >= 96) catGrade = "A+";
+    else if (cat.score >= 93) catGrade = "A";
+    else if (cat.score >= 90) catGrade = "A-";
+    else if (cat.score >= 85) catGrade = "B+";
+    else if (cat.score >= 80) catGrade = "B";
+    else if (cat.score >= 75) catGrade = "B-";
+    else if (cat.score >= 68) catGrade = "C+";
+    else if (cat.score >= 60) catGrade = "C";
+    else if (cat.score >= 55) catGrade = "C-";
+    else if (cat.score >= 50) catGrade = "D";
 
     const bar = makeBar(cat.score);
     lines.push(`  ${label} ${barColor}${bar}${c.reset} ${cat.score} ${c.dim}${catGrade}${c.reset}`);
