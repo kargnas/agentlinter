@@ -148,14 +148,13 @@ export function formatTerminal(result: LintResult): string {
  * Get SHIELD.md status for JSON output
  */
 function getShieldStatus(files: FileInfo[]): {
-  present: boolean;
+  hasShield: boolean;
   sections: { name: string; found: boolean }[];
-  complete: boolean;
 } {
   const shieldFile = files.find((f) => f.name === "SHIELD.md");
 
   if (!shieldFile) {
-    return { present: false, sections: [], complete: false };
+    return { hasShield: false, sections: [] };
   }
 
   const shieldContent = shieldFile.content.toLowerCase();
@@ -177,9 +176,8 @@ function getShieldStatus(files: FileInfo[]): {
   }));
 
   return {
-    present: true,
+    hasShield: true,
     sections,
-    complete: sections.every((s) => s.found),
   };
 }
 
