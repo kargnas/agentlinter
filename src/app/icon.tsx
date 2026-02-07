@@ -11,14 +11,13 @@ export default function Icon() {
         style={{
           width: 32,
           height: 32,
-          borderRadius: 8,
-          background: '#0a0a0f',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
+          background: 'transparent',
         }}
       >
-        <svg width="24" height="24" viewBox="0 0 32 32" fill="none">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
           {/* Left strand (S-curve) with gradient effect */}
           <path 
             d="M10 4 C10 9, 22 11, 22 16 C22 21, 10 23, 10 28" 
