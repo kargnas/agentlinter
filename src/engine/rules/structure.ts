@@ -88,24 +88,60 @@ export const structureRules: Rule[] = [
     id: "structure/file-size",
     category: "structure",
     severity: "warning",
-    description: "Files should not be excessively long (readability)",
+    description: "CLAUDE.md should stay under 150 lines for optimal context efficiency",
     check(files) {
       const diagnostics: Diagnostic[] = [];
       for (const file of files) {
         if (file.name === "CLAUDE.md" || file.name === "AGENTS.md") {
           if (file.lines.length > 500) {
             diagnostics.push({
+              severity: "error",
+              category: "structure",
+              rule: this.id,
+              file: file.name,
+              message: `File is ${file.lines.length} lines — this is way too long! Split into separate files immediately.`,
+              fix: "Split into focused files: SOUL.md (identity), TOOLS.md (tool config), SECURITY.md (security rules)",
+            });
+          } else if (file.lines.length > 150) {
+            diagnostics.push({
               severity: "warning",
               category: "structure",
               rule: this.id,
               file: file.name,
-              message: `File is ${file.lines.length} lines — consider splitting into separate files (SOUL.md, TOOLS.md, etc.) for maintainability.`,
-              fix: "Split into focused files: SOUL.md (identity), TOOLS.md (tool config), SECURITY.md (security rules)",
+              message: `File is ${file.lines.length} lines — Claude Code best practice recommends ≤150 lines. Context bloat hurts performance.`,
+              fix: "Move detailed instructions to separate files, use @imports, or .claude/rules/ for modular rules.",
             });
           }
         }
       }
       return diagnostics;
+    },
+  },
+
+  {
+    id: "structure/has-rules-folder",
+    category: "structure",
+    severity: "info",
+    description: "Using .claude/rules/ for modular, topic-specific rules",
+    check(files) {
+      const hasRulesFolder = files.some((f) => f.name.startsWith(".claude/rules/"));
+      const mainFile = files.find(
+        (f) => f.name === "CLAUDE.md" || f.name === "AGENTS.md"
+      );
+      if (!hasRulesFolder && mainFile && mainFile.lines.length > 80) {
+        return [
+          {
+            severity: "info",
+            category: "structure",
+            rule: this.id,
+            file: mainFile.name,
+            message:
+              "Consider using .claude/rules/*.md for modular, topic-specific rules (code-style.md, testing.md, security.md).",
+            fix: "Create .claude/rules/ folder with focused rule files. They're auto-loaded and can be path-scoped.",
+          },
+        ];
+      }
+      return [];
     },
   },
 
