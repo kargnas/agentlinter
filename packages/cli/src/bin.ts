@@ -40,10 +40,13 @@ async function main() {
   for (let i = 0; i < args.length; i++) {
     const arg = args[i];
     if (arg === '--json') jsonOutput = true;
-    else if (arg === '--share') share = true;
     else if (arg === '--local' || arg === '--no-share') { share = false; local = true; }
     else if (arg === '--no-audit') noAudit = true;
     else if (arg === '--audit-skill') {
+      auditSkillPath = args[++i];
+    }
+    else if (arg === 'scan') {
+      // scan <file|url> subcommand
       auditSkillPath = args[++i];
     }
     else if (arg === 'score') continue;
@@ -152,9 +155,7 @@ https://agentlinter.com`;
         }
       }
     } else {
-      if (!jsonOutput) {
-        console.log(`\n${c.dim}Run without --local to get a shareable report link.${c.reset}\n`);
-      }
+      // Report link generation skipped (--no-share)
     }
 
   } catch (error) {
@@ -317,18 +318,19 @@ function printHelp() {
 ${c.bold}AgentLinter CLI${c.reset}
 
 Usage:
-  npx agentlinter [path]              Lint workspace & share report (includes skill scan)
-  npx agentlinter --audit-skill FILE  Audit external skill file for trojans
-  npx agentlinter --local             Lint without uploading
-  npx agentlinter --json              Output raw JSON
+  npx agentlinter [path]              Lint workspace, scan skills & share report
+  npx agentlinter --no-share          Lint without sharing
   npx agentlinter --no-audit          Skip skills security scan
+  npx agentlinter --json              JSON output to stdout
+  npx agentlinter scan <file|url>     Audit external skill file
 
 Commands:
-  --audit-skill FILE   Deep security audit for skill files (MoltX-style attack detection)
+  scan <file|url>      Deep security audit for skill files (MoltX-style attack detection)
+                       Alias for --audit-skill
                        Detects: remote fetch, key harvesting, mandatory wallet, auto-update
 
 Options:
-  --local, --no-share  Skip report upload
+  --no-share           Skip report upload (default: share enabled)
   --no-audit           Skip skills folder auto-scan
   --json               JSON output to stdout
   -h, --help           Show this help
@@ -340,10 +342,11 @@ Skills Auto-Scan:
     ~/.clawd/skills/    Global Clawd skills
 
 Examples:
-  npx agentlinter                          # Lint + scan skills
-  npx agentlinter --no-audit               # Lint only, skip skill scan
-  npx agentlinter --audit-skill skill.md   # Audit a single skill file
-  npx agentlinter --audit-skill https://example.com/skill.md --json
+  npx agentlinter                          # Lint + scan + share (default)
+  npx agentlinter --no-share               # Lint without sharing
+  npx agentlinter --no-audit               # Skip skill scan
+  npx agentlinter scan skill.md            # Audit a skill file
+  npx agentlinter scan https://example.com/skill.md --json
 `);
 }
 
