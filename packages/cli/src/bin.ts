@@ -6,6 +6,7 @@ import { scanWorkspace, lint } from './engine';
 import { formatJSON } from './engine/reporter';
 import { uploadReport } from './upload';
 import { LintResult, Diagnostic } from './engine/types';
+import { auditSkillFile, formatAuditResult, formatAuditJSON } from './engine/audit-skill';
 
 const { version: VERSION } = JSON.parse(
   fs.readFileSync(path.resolve(__dirname, '../package.json'), 'utf-8')
@@ -31,6 +32,7 @@ async function main() {
   let jsonOutput = false;
   let share = true; // share by default
   let local = false;
+  let auditSkillPath: string | null = null;
 
   // Parse args
   for (let i = 0; i < args.length; i++) {
@@ -38,12 +40,21 @@ async function main() {
     if (arg === '--json') jsonOutput = true;
     else if (arg === '--share') share = true;
     else if (arg === '--local' || arg === '--no-share') { share = false; local = true; }
+    else if (arg === '--audit-skill') {
+      auditSkillPath = args[++i];
+    }
     else if (arg === 'score') continue;
     else if (arg === '--help' || arg === '-h') {
       printHelp();
       process.exit(0);
     }
     else if (!arg.startsWith('-')) targetDir = path.resolve(process.cwd(), arg);
+  }
+
+  // Skill Audit Mode
+  if (auditSkillPath) {
+    await runSkillAudit(auditSkillPath, jsonOutput);
+    return;
   }
 
   if (!fs.existsSync(targetDir)) {
@@ -240,19 +251,77 @@ function makeBar(score: number): string {
   return "█".repeat(filled) + "░".repeat(empty);
 }
 
+async function runSkillAudit(skillPath: string, jsonOutput: boolean) {
+  let content: string;
+  let filename: string;
+  
+  // Check if it's a URL
+  if (skillPath.startsWith('http://') || skillPath.startsWith('https://')) {
+    if (!jsonOutput) {
+      console.log(`${c.dim}Fetching: ${skillPath}${c.reset}`);
+    }
+    try {
+      const res = await fetch(skillPath);
+      if (!res.ok) {
+        console.error(`${c.red}Error: Failed to fetch URL (${res.status})${c.reset}`);
+        process.exit(1);
+      }
+      content = await res.text();
+      filename = skillPath.split('/').pop() || 'skill.md';
+    } catch (err) {
+      console.error(`${c.red}Error: Could not fetch URL: ${err instanceof Error ? err.message : String(err)}${c.reset}`);
+      process.exit(1);
+    }
+  } else {
+    // Local file
+    const resolvedPath = path.resolve(process.cwd(), skillPath);
+    
+    if (!fs.existsSync(resolvedPath)) {
+      console.error(`${c.red}Error: File not found: ${skillPath}${c.reset}`);
+      process.exit(1);
+    }
+    
+    content = fs.readFileSync(resolvedPath, 'utf-8');
+    filename = path.basename(resolvedPath);
+  }
+  
+  const result = auditSkillFile(content, filename);
+  
+  if (jsonOutput) {
+    console.log(formatAuditJSON(result));
+  } else {
+    console.log(formatAuditResult(result));
+  }
+  
+  // Exit with error code if dangerous
+  if (result.verdict === "DANGEROUS" || result.verdict === "MALICIOUS") {
+    process.exit(1);
+  }
+}
+
 function printHelp() {
   console.log(`
 ${c.bold}AgentLinter CLI${c.reset}
 
 Usage:
-  npx agentlinter [path]       Lint & share report (default)
-  npx agentlinter --local      Lint without uploading
-  npx agentlinter --json       Output raw JSON
+  npx agentlinter [path]              Lint workspace & share report
+  npx agentlinter --audit-skill FILE  Audit external skill file for trojans
+  npx agentlinter --local             Lint without uploading
+  npx agentlinter --json              Output raw JSON
+
+Commands:
+  --audit-skill FILE   Deep security audit for skill files (MoltX-style attack detection)
+                       Detects: remote fetch, key harvesting, mandatory wallet, auto-update
 
 Options:
   --local, --no-share  Skip report upload
   --json               JSON output to stdout
   -h, --help           Show this help
+
+Examples:
+  npx agentlinter                          # Lint current directory
+  npx agentlinter --audit-skill skill.md   # Audit a skill file
+  npx agentlinter --audit-skill https://example.com/skill.md --json
 `);
 }
 
