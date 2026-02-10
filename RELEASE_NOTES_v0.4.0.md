@@ -1,4 +1,4 @@
-# AgentLinter v0.5.0 Release Notes
+# AgentLinter v0.4.0 Release Notes
 
 **Release Date:** February 10, 2026
 
@@ -58,7 +58,7 @@ No configuration required. If no skill folders are found, the scan is silently s
 ### Output Format
 
 ```
-🔍 AgentLinter v0.5.0
+🔍 AgentLinter v0.4.0
 
 📄 CLAUDE.md Analysis
 [grading results...]
