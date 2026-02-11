@@ -532,4 +532,51 @@ export const clarityRules: Rule[] = [
       return diagnostics;
     },
   },
+
+  {
+    id: "clarity/english-config-files",
+    category: "clarity",
+    severity: "warning",
+    description: "Core config files should be written in English for better token efficiency and interpretation accuracy",
+    check(files) {
+      const diagnostics: Diagnostic[] = [];
+      // Korean/CJK character detection
+      const NON_ENGLISH_PATTERN = /[\u3131-\u3163\uac00-\ud7a3\u4e00-\u9fff\u3040-\u309f\u30a0-\u30ff]/;
+      // Files that should be in English
+      const CONFIG_FILES = ["CLAUDE.md", "AGENTS.md", "SOUL.md", "README.md", ".cursorrules"];
+      
+      for (const file of files) {
+        const isConfigFile = CONFIG_FILES.some(name => file.name === name || file.name.endsWith(`/${name}`));
+        if (!isConfigFile) continue;
+        
+        let nonEnglishLines = 0;
+        let firstNonEnglishLine = -1;
+        
+        for (let i = 0; i < file.lines.length; i++) {
+          const line = file.lines[i];
+          if (line.trim().startsWith("```") || line.trim().startsWith("<!--")) continue;
+          
+          if (NON_ENGLISH_PATTERN.test(line)) {
+            nonEnglishLines++;
+            if (firstNonEnglishLine === -1) firstNonEnglishLine = i + 1;
+          }
+        }
+        
+        if (nonEnglishLines > 0) {
+          const percentage = Math.round((nonEnglishLines / file.lines.length) * 100);
+          const severity = percentage > 50 ? "warning" : "info";
+          diagnostics.push({
+            severity,
+            category: "clarity",
+            rule: this.id,
+            file: file.name,
+            line: firstNonEnglishLine,
+            message: `${file.name} contains ${nonEnglishLines} non-English lines (${percentage}%). Config files in English save ~60% tokens and reduce interpretation ambiguity.`,
+            fix: "Translate system instructions to English. Keep domain-specific terms (names, trigger keywords) in original language if needed.",
+          });
+        }
+      }
+      return diagnostics;
+    },
+  },
 ];
