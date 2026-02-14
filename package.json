@@ -5,6 +5,7 @@
   "private": true,
   "files": [
     "README.md",
+    "packages/cli/package.json",
     "packages/cli/dist/bin.js"
   ],
   "bin": {
